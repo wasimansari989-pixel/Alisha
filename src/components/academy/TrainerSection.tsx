@@ -4,7 +4,7 @@ import { ACADEMY_CONFIG } from '@/constants/config';
 import { PersonalityIcon } from './icons';
 
 // Import Trainer Image
-const TrainerImg = require('../../Image/2.png');
+const TrainerImg = require('../../Image/01.webp');
 
 export default function TrainerSection() {
   const { width } = useWindowDimensions();
