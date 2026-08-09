@@ -222,7 +222,7 @@ export default function CoursesSection({ onEnrollPress }: CoursesSectionProps) {
           <Text style={styles.shufflerTitle}>Skills You Master</Text>
           <Text style={styles.shufflerDesc}>Click any tag below to shuffle the key skills you will build in our program.</Text>
           
-          <Pressable onPress={handleShuffle} style={styles.tagsContainer}>
+          <Pressable onPress={handleShuffle} style={[styles.tagsContainer, isMobile && styles.tagsContainerMobile]}>
             {tagsList.map((tag, idx) => {
               const pos = positions[idx] || slots[0];
               const isBlack = tag.theme === 'black';
@@ -233,7 +233,7 @@ export default function CoursesSection({ onEnrollPress }: CoursesSectionProps) {
                   style={[
                     styles.tagBase,
                     isBlack ? styles.tagBlack : styles.tagWhite,
-                    {
+                    isMobile ? styles.tagMobile : {
                       top: pos.top as any,
                       left: pos.left as any,
                       transform: [{ rotate: pos.rot }],
@@ -363,6 +363,17 @@ const styles = StyleSheet.create({
     position: 'relative',
     flex: 1,
     minHeight: 250,
+  },
+  tagsContainerMobile: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+    minHeight: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tagMobile: {
+    position: 'relative',
   },
   tagBase: {
     position: 'absolute',
