@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
         cursor: 'pointer',
       } as any,
     }),

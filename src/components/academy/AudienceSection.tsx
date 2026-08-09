@@ -18,26 +18,36 @@ export default function AudienceSection() {
       icon: <GraduationIcon size={22} color="#fde351" />,
       title: 'Students',
       desc: 'Improve English fluency for school, college classes, writing essays, and academic success.',
+      colorBarGrad: 'linear-gradient(90deg, #EFBA30, #F3E129)',
+      colorBarFallback: '#EFBA30',
     },
     {
       icon: <InterviewIcon size={22} color="#fde351" />,
       title: 'Job Seekers',
       desc: 'Build vocabulary, practice mocks, and prepare to crack job interviews with high confidence.',
+      colorBarGrad: 'linear-gradient(90deg, #77889A, #96A3B4)',
+      colorBarFallback: '#77889A',
     },
     {
       icon: <ProfessionalIcon size={22} color="#fde351" />,
       title: 'Professionals',
       desc: 'Communicate more confidently at office meetings, draft business emails, and boost presentations.',
+      colorBarGrad: 'linear-gradient(90deg, #5B965E, #91BD82)',
+      colorBarFallback: '#5B965E',
     },
     {
       icon: <RocketIcon size={22} color="#fde351" />,
       title: 'Entrepreneurs',
       desc: 'Develop persuasive communication skills for client pitches, business negotiations, and networking.',
+      colorBarGrad: 'linear-gradient(90deg, #3D838D, #8BC9D8)',
+      colorBarFallback: '#3D838D',
     },
     {
       icon: <SpeakingHeadIcon size={22} color="#fde351" />,
       title: 'Everyday Learners',
       desc: 'Become highly comfortable and natural while speaking English in daily social interactions.',
+      colorBarGrad: 'linear-gradient(90deg, #366184, #5A85A7)',
+      colorBarFallback: '#366184',
     },
   ];
 
@@ -70,6 +80,14 @@ export default function AudienceSection() {
               </View>
               <Text style={styles.cardTitle}>{aud.title}</Text>
               <Text style={styles.cardDesc}>{aud.desc}</Text>
+              <View
+                style={[
+                  styles.colorBar,
+                  Platform.OS === 'web'
+                    ? { backgroundImage: aud.colorBarGrad } as any
+                    : { backgroundColor: aud.colorBarFallback },
+                ]}
+              />
             </View>
           ))}
         </View>
@@ -147,19 +165,20 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e8e4d6',
     alignItems: 'flex-start',
+    minHeight: 260,
     ...Platform.select({
       ios: {
         shadowColor: '#0a0a0a',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.02,
+        shadowOffset: { width: -4, height: 4 },
+        shadowOpacity: 0.08,
         shadowRadius: 10,
       },
       android: {
-        elevation: 1,
+        elevation: 2,
       },
       web: {
-        background: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04)',
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
         transition: 'transform 0.3s ease',
         cursor: 'default',
         ':hover': {
@@ -201,6 +220,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+    marginBottom: 16,
+  },
+  colorBar: {
+    height: 6,
+    borderRadius: 3,
+    width: 90,
+    marginTop: 'auto',
   },
 });
 

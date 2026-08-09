@@ -5,7 +5,8 @@ interface StepItem {
   step: string;
   title: string;
   desc: string;
-  bgStyle: any;
+  colorBarGrad: string;
+  colorBarFallback: string;
 }
 
 function LearningJourneyCard({ item }: { item: StepItem }) {
@@ -49,7 +50,6 @@ function LearningJourneyCard({ item }: { item: StepItem }) {
         {
           transform: [{ scale }, { translateY }],
         },
-        item.bgStyle,
       ]}
       {...(Platform.OS === 'web'
         ? {
@@ -65,6 +65,14 @@ function LearningJourneyCard({ item }: { item: StepItem }) {
         <Text style={styles.cardTitle}>{item.title}</Text>
       </View>
       <Text style={styles.cardDesc}>{item.desc}</Text>
+      <View
+        style={[
+          styles.colorBar,
+          Platform.OS === 'web'
+            ? { backgroundImage: item.colorBarGrad } as any
+            : { backgroundColor: item.colorBarFallback },
+        ]}
+      />
     </Animated.View>
   );
 }
@@ -78,65 +86,29 @@ export default function LearningJourney() {
       step: '01',
       title: 'Grammar & Foundations',
       desc: 'Master the core rules, tenses, sentence structures, and build immediate grammatical confidence.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #EFBA30, #F3E129)',
+      colorBarFallback: '#EFBA30',
     },
     {
       step: '02',
       title: 'Vocabulary & Word Power',
       desc: 'Boost your expressive capacity using modern verbs, idioms, phrases, and workplace terminology.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #5B965E, #91BD82)',
+      colorBarFallback: '#5B965E',
     },
     {
       step: '03',
       title: 'Spoken Fluency Drills',
       desc: 'Engage in daily discussions, dialogs, situational speech drills, and eliminate hesitate blocks.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #3D838D, #8BC9D8)',
+      colorBarFallback: '#3D838D',
     },
     {
       step: '04',
       title: 'Professional Presentation',
       desc: 'Perfect your interview frameworks, public speaking, body language, and career communication.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #A73887, #EF5DA4)',
+      colorBarFallback: '#A73887',
     },
   ];
 
@@ -268,22 +240,23 @@ const styles = StyleSheet.create({
   },
   contentCard: {
     backgroundColor: '#f6f3eb',
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 32,
     borderWidth: 1,
     borderColor: '#e8e4d6',
-    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)',
     ...Platform.select({
       ios: {
         shadowColor: '#0a0a0a',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.03,
+        shadowOffset: { width: -4, height: 4 },
+        shadowOpacity: 0.08,
         shadowRadius: 10,
       },
       android: {
-        elevation: 1.5,
+        elevation: 2,
       },
       web: {
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
         transition: 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s',
       } as any,
     }),
@@ -327,12 +300,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+    marginBottom: 16,
   },
   centerSpacing: {
     width: 80,
   },
   emptyCol: {
     flex: 1,
+  },
+  colorBar: {
+    height: 6,
+    borderRadius: 3,
+    width: 90,
+    marginTop: 'auto',
   },
 });
 

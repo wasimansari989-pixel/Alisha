@@ -22,7 +22,8 @@ interface CardItem {
   icon: React.ReactNode;
   btnText: string;
   mode: 'Online' | 'Offline' | 'Not Sure';
-  bgStyle: any;
+  colorBarGrad: string;
+  colorBarFallback: string;
 }
 
 function ClassModeCard({ item, onSelect }: { item: CardItem; onSelect: () => void }) {
@@ -66,7 +67,6 @@ function ClassModeCard({ item, onSelect }: { item: CardItem; onSelect: () => voi
         {
           transform: [{ scale }, { translateY }],
         },
-        item.bgStyle,
       ]}
       {...(Platform.OS === 'web'
         ? {
@@ -75,26 +75,39 @@ function ClassModeCard({ item, onSelect }: { item: CardItem; onSelect: () => voi
           }
         : {})}
     >
-      <View style={styles.cardHeader}>
-        <Text style={styles.cardNum}>{item.num}</Text>
-        <Text style={styles.cardEyebrow}>— {item.eyebrow}</Text>
+      <View>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardNum}>{item.num}</Text>
+          <Text style={styles.cardEyebrow}>— {item.eyebrow}</Text>
+        </View>
+
+        <Text style={styles.cardTitle}>{item.title}</Text>
+        <Text style={styles.cardDesc}>{item.desc}</Text>
       </View>
 
-      <Text style={styles.cardTitle}>{item.title}</Text>
-      <Text style={styles.cardDesc}>{item.desc}</Text>
+      <View style={styles.cardFooterContainer}>
+        <View style={styles.cardFooter}>
+          <View style={styles.iconCircle}>{item.icon}</View>
+          <TouchableOpacity
+            onPress={onSelect}
+            style={styles.actionBtn}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.actionBtnText}>{item.btnText}</Text>
+            <View style={styles.arrowIconWrapper}>
+              <ArrowRightIcon size={10} color="#ffffff" />
+            </View>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.cardFooter}>
-        <View style={styles.iconCircle}>{item.icon}</View>
-        <TouchableOpacity
-          onPress={onSelect}
-          style={styles.actionBtn}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.actionBtnText}>{item.btnText}</Text>
-          <View style={styles.arrowIconWrapper}>
-            <ArrowRightIcon size={10} color="#ffffff" />
-          </View>
-        </TouchableOpacity>
+        <View
+          style={[
+            styles.colorBar,
+            Platform.OS === 'web'
+              ? { backgroundImage: item.colorBarGrad } as any
+              : { backgroundColor: item.colorBarFallback },
+          ]}
+        />
       </View>
     </Animated.View>
   );
@@ -114,17 +127,8 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
       icon: <OnlineIcon size={22} color="#fde351" />,
       btnText: 'Choose Online',
       mode: 'Online',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #EFBA30, #F3E129)',
+      colorBarFallback: '#EFBA30',
     },
     {
       num: '02',
@@ -134,17 +138,8 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
       icon: <OfflineIcon size={22} color="#fde351" />,
       btnText: 'Choose Offline',
       mode: 'Offline',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #5B965E, #91BD82)',
+      colorBarFallback: '#5B965E',
     },
     {
       num: '03',
@@ -154,17 +149,8 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
       icon: <PersonalityIcon size={22} color="#fde351" />,
       btnText: 'Choose 1-on-1',
       mode: 'Not Sure',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #A73887, #EF5DA4)',
+      colorBarFallback: '#A73887',
     },
   ];
 
@@ -275,22 +261,24 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 28,
     padding: 36,
-    minHeight: 420,
+    minHeight: 440,
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: '#e8e4d6',
-    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)',
+    backgroundColor: '#f6f3eb',
     ...Platform.select({
       ios: {
         shadowColor: '#0a0a0a',
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.05,
-        shadowRadius: 12,
+        shadowOffset: { width: -4, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
       },
       android: {
         elevation: 2,
       },
       web: {
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
         transition: 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s',
       } as any,
     }),
@@ -337,11 +325,14 @@ const styles = StyleSheet.create({
     marginBottom: 36,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
+  cardFooterContainer: {
+    marginTop: 'auto',
+  },
   cardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 'auto',
+    marginBottom: 18,
   },
   iconCircle: {
     width: 44,
@@ -350,8 +341,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#0a0a0a',
   },
   actionBtn: {
     backgroundColor: '#ffffff',
@@ -383,6 +372,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  colorBar: {
+    height: 6,
+    borderRadius: 3,
+    width: 90,
   },
 });
 

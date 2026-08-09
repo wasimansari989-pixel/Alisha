@@ -6,7 +6,8 @@ interface FeatureItem {
   icon: React.ReactNode;
   title: string;
   desc: string;
-  bgStyle: any;
+  colorBarGrad: string;
+  colorBarFallback: string;
 }
 
 function WhyUsCard({ item }: { item: FeatureItem }) {
@@ -50,7 +51,6 @@ function WhyUsCard({ item }: { item: FeatureItem }) {
         {
           transform: [{ scale }, { translateY }],
         },
-        item.bgStyle,
       ]}
       {...(Platform.OS === 'web'
         ? {
@@ -62,6 +62,14 @@ function WhyUsCard({ item }: { item: FeatureItem }) {
       <View style={styles.iconCircle}>{item.icon}</View>
       <Text style={styles.cardTitle}>{item.title}</Text>
       <Text style={styles.cardDesc}>{item.desc}</Text>
+      <View
+        style={[
+          styles.colorBar,
+          Platform.OS === 'web'
+            ? { backgroundImage: item.colorBarGrad } as any
+            : { backgroundColor: item.colorBarFallback },
+        ]}
+      />
     </Animated.View>
   );
 }
@@ -76,65 +84,29 @@ export default function WhyUsSection() {
       icon: <MicrophoneIcon size={22} color="#fde351" />,
       title: 'Practical Speaking Focus',
       desc: 'Instead of just memorizing grammar tenses, engage directly in interactive conversation drills from session one.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #EFBA30, #F3E129)',
+      colorBarFallback: '#EFBA30',
     },
     {
       icon: <BookIcon size={22} color="#fde351" />,
       title: 'Expert Personal Coaching',
       desc: 'Learn directly from Trainer Alisha Ahmed, receiving personal guidance and speaking corrections.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #3D838D, #8BC9D8)',
+      colorBarFallback: '#3D838D',
     },
     {
       icon: <VocabularyIcon size={22} color="#fde351" />,
       title: 'Daily Speaking Activities',
       desc: 'Participate in group discussions, roleplay dialogues, and vocabulary boost drills to eliminate hesitation.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #5B965E, #91BD82)',
+      colorBarFallback: '#5B965E',
     },
     {
       icon: <LevelIcon size={22} color="#fde351" />,
       title: 'Structured Syllabus',
       desc: 'A comprehensive study path designed specifically for school kids, college students, job seekers, and business owners.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #A73887, #EF5DA4)',
+      colorBarFallback: '#A73887',
     },
   ];
 
@@ -222,6 +194,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 600,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   grid: {
     flexDirection: 'row',
@@ -233,24 +206,26 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   card: {
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 32,
     borderWidth: 1,
     borderColor: '#e8e4d6',
+    backgroundColor: '#f6f3eb',
     alignItems: 'flex-start',
-    minHeight: 280,
-    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)',
+    minHeight: 290,
     ...Platform.select({
       ios: {
         shadowColor: '#0a0a0a',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.03,
+        shadowOffset: { width: -4, height: 4 },
+        shadowOpacity: 0.08,
         shadowRadius: 10,
       },
       android: {
-        elevation: 1.5,
+        elevation: 2,
       },
       web: {
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
         transition: 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s',
       } as any,
     }),
@@ -267,15 +242,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   iconCircle: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#0a0a0a',
   },
   cardTitle: {
     color: '#0a0a0a',
@@ -290,6 +263,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+    marginBottom: 16,
+  },
+  colorBar: {
+    height: 6,
+    borderRadius: 3,
+    width: 90,
+    marginTop: 'auto',
   },
 });
 

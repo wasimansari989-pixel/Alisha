@@ -50,9 +50,9 @@ export default function HeroSection({ onScrollTo }: HeroSectionProps) {
           Unlock your potential with our proven English training expertise. From grammar foundations to spoken fluency and interview prep, we drive growth.
         </Text>
 
-        {/* Button Group (FirstPlace side-by-side or stacked on mobile) */}
+        {/* Button Group (Single Unique Hero CTA) */}
         <View style={[styles.btnGroup, isMobile && styles.btnGroupMobile]}>
-          {/* Unique "Meet Alisha" CTA */}
+          {/* Unique Glowing "Meet Alisha" CTA */}
           <TouchableOpacity
             onPress={() => onScrollTo('trainer')}
             style={styles.ctaSecondary}
@@ -64,27 +64,6 @@ export default function HeroSection({ onScrollTo }: HeroSectionProps) {
                 <Path
                   d="M 5 11 L 11 5 M 7 5 L 11 5 L 11 9"
                   stroke="#0a0a0a"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-              </Svg>
-            </View>
-          </TouchableOpacity>
-
-          {/* Yellow Big CTA */}
-          <TouchableOpacity
-            onPress={() => onScrollTo('contact')}
-            style={styles.ctaYellow}
-            activeOpacity={0.9}
-          >
-            <Text style={styles.ctaText}>Book a call</Text>
-            <View style={styles.ctaCircle}>
-              <Svg viewBox="0 0 16 16" style={styles.ctaCircleSvg}>
-                <Path
-                  d="M 5 11 L 11 5 M 7 5 L 11 5 L 11 9"
-                  stroke="#ffffff"
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -148,66 +127,11 @@ const styles = StyleSheet.create({
   },
   btnGroup: {
     flexDirection: 'row',
-    gap: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
   btnGroupMobile: {
-    flexDirection: 'column',
     width: '100%',
-  },
-  ctaYellow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingLeft: 28,
-    paddingRight: 14,
-    paddingVertical: 14,
-    backgroundColor: '#fde351',
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: '#d8b020',
-    ...Platform.select({
-      web: {
-        backgroundImage: 'linear-gradient(180deg, #ffe760 0%, #fde351 55%, #f7d130 100%)',
-        boxShadow: `
-          inset 0 1px 0 rgba(255, 255, 255, 0.7),
-          inset 0 -2px 4px rgba(180, 140, 30, 0.3),
-          0 2px 0 #d8a920,
-          0 4px 0 #a87810,
-          0 8px 16px -2px rgba(200, 160, 30, 0.4),
-          0 16px 28px -10px rgba(200, 160, 30, 0.3)
-        `,
-        cursor: 'pointer',
-        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-        ':hover': {
-          transform: 'translateY(-2px)',
-          boxShadow: `
-            inset 0 1px 0 rgba(255, 255, 255, 0.7),
-            inset 0 -2px 4px rgba(180, 140, 30, 0.3),
-            0 3px 0 #d8a920,
-            0 6px 0 #a87810,
-            0 12px 22px -2px rgba(200, 160, 30, 0.45),
-            0 22px 36px -10px rgba(200, 160, 30, 0.35)
-          `,
-        },
-      } as any,
-    }),
-  },
-  ctaText: {
-    color: '#0a0a0a',
-    fontSize: 17,
-    fontWeight: '600',
-    letterSpacing: -0.2,
-    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
-  },
-  ctaCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#0a0a0a',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   ctaCircleSvg: {
     width: 14,
@@ -220,35 +144,34 @@ const styles = StyleSheet.create({
     paddingLeft: 28,
     paddingRight: 14,
     paddingVertical: 14,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#0a0a0a',
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: '#e8e4d6',
+    borderWidth: 2,
+    borderColor: '#fde351',
     ...Platform.select({
       web: {
-        backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fafafa 100%)',
         boxShadow: `
-          inset 0 1px 0 #ffffff,
-          0 2px 0 #e8e4d6,
-          0 4px 12px rgba(40, 40, 30, 0.04)
+          0 8px 24px rgba(253, 227, 81, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.4)
         `,
         cursor: 'pointer',
         transition: 'transform 0.15s ease, box-shadow 0.15s ease',
         ':hover': {
           transform: 'translateY(-2px)',
           boxShadow: `
-            inset 0 1px 0 #ffffff,
-            0 3px 0 #e8e4d6,
-            0 6px 16px rgba(40, 40, 30, 0.06)
+            0 12px 30px rgba(253, 227, 81, 0.45),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.4)
           `,
         },
       } as any,
     }),
   },
   ctaSecondaryText: {
-    color: '#0a0a0a',
+    color: '#ffffff',
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: '700',
     letterSpacing: -0.2,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
@@ -256,9 +179,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#f6f3eb',
-    borderWidth: 1,
-    borderColor: '#e8e4d6',
+    backgroundColor: '#fde351',
     alignItems: 'center',
     justifyContent: 'center',
   },

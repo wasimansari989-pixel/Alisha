@@ -19,6 +19,14 @@ export default function StatsSection() {
           <Text style={styles.statDescDark}>
             Practical speaking drills and interactive conversations in every session.
           </Text>
+          <View
+            style={[
+              styles.colorBar,
+              Platform.OS === 'web'
+                ? { backgroundImage: 'linear-gradient(90deg, #C02A2C, #EC782D)' } as any
+                : { backgroundColor: '#C02A2C' },
+            ]}
+          />
         </TouchableOpacity>
 
         {/* Stat Light Card */}
@@ -32,6 +40,14 @@ export default function StatsSection() {
           <Text style={styles.statDescLight}>
             Average ratings from 1,200+ students and professionals who achieved fluency.
           </Text>
+          <View
+            style={[
+              styles.colorBar,
+              Platform.OS === 'web'
+                ? { backgroundImage: 'linear-gradient(90deg, #5B355A, #8D5288)' } as any
+                : { backgroundColor: '#5B355A' },
+            ]}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -57,7 +73,7 @@ const styles = StyleSheet.create({
   },
   statHalf: {
     flex: 1,
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 36,
     minHeight: 220,
     justifyContent: 'space-between',
@@ -77,12 +93,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         backgroundImage: 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%)',
-        boxShadow: `
-          inset 0 1px 0 rgba(255, 255, 255, 0.06),
-          inset 0 -2px 4px rgba(0, 0, 0, 0.4),
-          0 3px 0 rgba(0, 0, 0, 0.4),
-          0 12px 24px -4px rgba(0, 0, 0, 0.18)
-        `,
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.3), inset -2px 2px 4px rgba(255, 255, 255, 0.06), inset 2px -2px 4px rgba(0, 0, 0, 0.4)',
       } as any,
     }),
   },
@@ -93,12 +104,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fafaf5 100%)',
-        boxShadow: `
-          inset 0 1px 0 rgba(255, 255, 255, 1),
-          inset 0 -1px 2px rgba(0, 0, 0, 0.02),
-          0 4px 12px rgba(40, 40, 30, 0.05),
-          0 12px 24px -8px rgba(40, 40, 30, 0.07)
-        `,
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
       } as any,
     }),
   },
@@ -133,5 +139,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: 16,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+  },
+  colorBar: {
+    height: 6,
+    borderRadius: 3,
+    width: 90,
+    marginTop: 18,
   },
 });

@@ -21,7 +21,8 @@ interface CourseItem {
   title: string;
   tagline: string;
   desc: string;
-  bgStyle: any;
+  colorBarGrad: string;
+  colorBarFallback: string;
 }
 
 function CourseCard({ item, onEnroll }: { item: CourseItem; onEnroll: () => void }) {
@@ -65,7 +66,6 @@ function CourseCard({ item, onEnroll }: { item: CourseItem; onEnroll: () => void
         {
           transform: [{ scale }, { translateY }],
         },
-        item.bgStyle,
       ]}
       {...(Platform.OS === 'web'
         ? {
@@ -93,6 +93,15 @@ function CourseCard({ item, onEnroll }: { item: CourseItem; onEnroll: () => void
           <ArrowRightIcon size={10} color="#ffffff" />
         </View>
       </TouchableOpacity>
+
+      <View
+        style={[
+          styles.colorBar,
+          Platform.OS === 'web'
+            ? { backgroundImage: item.colorBarGrad } as any
+            : { backgroundColor: item.colorBarFallback },
+        ]}
+      />
     </Animated.View>
   );
 }
@@ -135,119 +144,56 @@ export default function CoursesSection({ onEnrollPress }: CoursesSectionProps) {
       title: 'Spoken English',
       tagline: 'Fluency & confidence',
       desc: 'Master spoken communication, pronunciation, fluency, and express yourself with complete ease in public and social groups.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #EFBA30, #F3E129)',
+      colorBarFallback: '#EFBA30',
     },
     {
       icon: <BookIcon size={22} color="#fde351" />,
       title: 'Grammar',
       tagline: 'Basic to advanced structure',
       desc: 'Build strong structural foundations, sentence formations, correct usage of tenses, active/passive voice, and speech rules.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #77889A, #96A3B4)',
+      colorBarFallback: '#77889A',
     },
     {
       icon: <VocabularyIcon size={22} color="#fde351" />,
       title: 'Vocabulary',
       tagline: 'Word power booster',
       desc: 'Expand your word bank, use modern idiomatic expressions, phrasal verbs, and professional terminology in conversations.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #5B965E, #91BD82)',
+      colorBarFallback: '#5B965E',
     },
     {
       icon: <PersonalityIcon size={22} color="#fde351" />,
       title: 'Personality Development',
       tagline: 'Communication & presence',
       desc: 'Improve body language, presentation posture, conversational skills, and social etiquette to build an impressive presence.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #3D838D, #8BC9D8)',
+      colorBarFallback: '#3D838D',
     },
     {
       icon: <InterviewIcon size={22} color="#fde351" />,
       title: 'Interview Preparation',
       tagline: 'Crack interviews with ease',
       desc: 'Learn resume building, practice mockup interviews, response framing, body language, and answer tough questions confidently.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #366184, #5A85A7)',
+      colorBarFallback: '#366184',
     },
     {
       icon: <SpeakingIcon size={22} color="#fde351" />,
       title: 'Daily Speaking Practice',
       tagline: 'Everyday dialogue focus',
       desc: 'Engage in group discussions, extempore sessions, peer dialogue, and situational speaking drills to boost instant reaction.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #625751, #A0938B)',
+      colorBarFallback: '#625751',
     },
     {
       icon: <LevelIcon size={22} color="#fde351" />,
       title: 'Beginner to Advanced',
       tagline: 'Academic, jobs & business paths',
       desc: 'A comprehensive full-path curriculum designed explicitly for students, job seekers, working professionals, and business owners.',
-      bgStyle: {
-        backgroundColor: '#f6f3eb',
-        borderWidth: 1,
-        borderColor: '#e8e4d6',
-        ...Platform.select({
-          web: {
-            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
-          } as any,
-        }),
-      },
+      colorBarGrad: 'linear-gradient(90deg, #C02A2C, #EC782D)',
+      colorBarFallback: '#C02A2C',
     },
   ];
 
@@ -260,12 +206,12 @@ export default function CoursesSection({ onEnrollPress }: CoursesSectionProps) {
   return (
     <View style={styles.container}>
       <View style={styles.contentInner}>
-        {/* Section Header */}
+        {/* Header */}
         <View style={styles.header}>
           <View style={styles.eyebrowContainer}>
-            <Text style={styles.eyebrowText}>Our course offerings</Text>
+            <Text style={styles.eyebrowText}>Our program paths</Text>
           </View>
-          <Text style={styles.title}>Everything you need to master English</Text>
+          <Text style={styles.title}>Explore our courses</Text>
           <Text style={styles.subtitle}>
             Explore our curriculum structured to guide you step-by-step from fundamental grammar to executive communication.
           </Text>
@@ -373,28 +319,36 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
-    maxWidth: 640,
+    maxWidth: 600,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   shufflerCard: {
     backgroundColor: '#f6f3eb',
-    borderWidth: 1,
-    borderColor: '#e8e4d6',
     borderRadius: 28,
     padding: 36,
-    marginBottom: 44,
-    minHeight: 380,
+    borderWidth: 1,
+    borderColor: '#e8e4d6',
+    marginBottom: 56,
     ...Platform.select({
+      ios: {
+        shadowColor: '#0a0a0a',
+        shadowOffset: { width: -4, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+      },
+      android: {
+        elevation: 2,
+      },
       web: {
         backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
-        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
       } as any,
     }),
   },
   shufflerTitle: {
     color: '#0a0a0a',
-    fontSize: 26,
-    fontWeight: '700',
+    fontSize: 22,
+    fontWeight: '800',
     marginBottom: 8,
     letterSpacing: -0.5,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
@@ -480,24 +434,26 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   gridItem: {
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 28,
     borderWidth: 1,
     borderColor: '#e8e4d6',
+    backgroundColor: '#f6f3eb',
     justifyContent: 'space-between',
-    minHeight: 260,
-    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)',
+    minHeight: 290,
     ...Platform.select({
       ios: {
         shadowColor: '#0a0a0a',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.03,
+        shadowOffset: { width: -4, height: 4 },
+        shadowOpacity: 0.08,
         shadowRadius: 10,
       },
       android: {
-        elevation: 1.5,
+        elevation: 2,
       },
       web: {
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: '-10px 10px 20px rgba(0, 0, 0, 0.18), inset -2px 2px 5px #ffffff, inset 2px -2px 5px rgba(0, 0, 0, 0.12)',
         transition: 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s',
       } as any,
     }),
@@ -518,14 +474,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   iconWrapper: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#0a0a0a',
   },
   titleWrapper: {
     flex: 1,
@@ -541,28 +495,26 @@ const styles = StyleSheet.create({
     color: '#6a6a64',
     fontSize: 12,
     fontWeight: '600',
-    marginTop: 2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   cardDesc: {
     color: '#6a6a64',
     fontSize: 14,
     lineHeight: 22,
-    marginBottom: 24,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+    marginBottom: 20,
   },
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
     alignSelf: 'flex-start',
-    backgroundColor: '#ffffff',
-    paddingVertical: 8,
-    paddingLeft: 18,
-    paddingRight: 8,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: '#e8e4d6',
+    gap: 8,
+    backgroundColor: '#0a0a0a',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 100,
     ...Platform.select({
       web: {
         cursor: 'pointer',
@@ -570,18 +522,24 @@ const styles = StyleSheet.create({
     }),
   },
   actionText: {
-    color: '#0a0a0a',
+    color: '#ffffff',
     fontSize: 13,
     fontWeight: '700',
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   arrowCircle: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    backgroundColor: '#0a0a0a',
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  colorBar: {
+    height: 6,
+    borderRadius: 3,
+    width: 90,
+    marginTop: 18,
   },
 });
 
