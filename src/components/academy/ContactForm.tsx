@@ -95,15 +95,12 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>(({ onSuccess },
         </View>
 
         <View style={[styles.layoutRow, isMobile && styles.layoutRowMobile]}>
-          {/* Left: Form Box (glowing charcoal) */}
+          {/* Left: Form Box (cream card) */}
           <View style={styles.formCard}>
-            {/* Glow Backdrops - Novabrew-style */}
-            <View style={styles.glowTopRight} />
-
             {submitted ? (
               <View style={styles.successContainer}>
                 <View style={styles.successIconCircle}>
-                  <CheckIcon size={32} color="#FFFFFF" />
+                  <CheckIcon size={32} color="#0a0a0a" />
                 </View>
                 <Text style={styles.successTitle}>Reservation Requested!</Text>
                 <Text style={styles.successDesc}>
@@ -118,72 +115,64 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>(({ onSuccess },
                 </TouchableOpacity>
               </View>
             ) : (
-              <View style={styles.form}>
-                {/* Full Name */}
-                <View style={styles.fieldGroup}>
-                  <Text style={styles.label}>Full Name *</Text>
+              <View style={styles.formInner}>
+                {/* Input 1: Name */}
+                <View style={styles.formGroup}>
+                  <Text style={styles.inputLabel}>Full Name</Text>
                   <TextInput
-                    style={[styles.input, errors.name && styles.inputError]}
-                    placeholder="Enter your full name"
-                    placeholderTextColor="rgba(255, 255, 255, 0.3)"
                     value={name}
                     onChangeText={setName}
+                    placeholder="Enter your full name"
+                    placeholderTextColor="#8a8a84"
+                    style={[styles.textInput, errors.name ? styles.inputError : null]}
                   />
                   {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
                 </View>
 
-                {/* Phone & Email */}
-                <View style={[styles.fieldRow, isMobile && styles.fieldRowMobile]}>
-                  <View style={[styles.fieldGroup, { flex: 1 }]}>
-                    <Text style={styles.label}>Phone Number *</Text>
+                {/* Row: Phone & Email */}
+                <View style={[styles.formRow, isMobile && styles.formRowMobile]}>
+                  <View style={styles.flexOne}>
+                    <Text style={styles.inputLabel}>Phone Number</Text>
                     <TextInput
-                      style={[styles.input, errors.phone && styles.inputError]}
-                      placeholder="Enter phone number"
-                      placeholderTextColor="rgba(255, 255, 255, 0.3)"
-                      keyboardType="phone-pad"
                       value={phone}
                       onChangeText={setPhone}
+                      keyboardType="phone-pad"
+                      placeholder="e.g., +91 98765 43210"
+                      placeholderTextColor="#8a8a84"
+                      style={[styles.textInput, errors.phone ? styles.inputError : null]}
                     />
                     {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
                   </View>
 
-                  <View style={[styles.fieldGroup, { flex: 1 }]}>
-                    <Text style={styles.label}>Email Address *</Text>
+                  <View style={styles.flexOne}>
+                    <Text style={styles.inputLabel}>Email Address</Text>
                     <TextInput
-                      style={[styles.input, errors.email && styles.inputError]}
-                      placeholder="Enter email address"
-                      placeholderTextColor="rgba(255, 255, 255, 0.3)"
-                      keyboardType="email-address"
-                      autoCapitalize="none"
                       value={email}
                       onChangeText={setEmail}
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      placeholder="e.g., you@domain.com"
+                      placeholderTextColor="#8a8a84"
+                      style={[styles.textInput, errors.email ? styles.inputError : null]}
                     />
                     {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
                   </View>
                 </View>
 
-                {/* Preferred Class Mode */}
-                <View style={styles.fieldGroup}>
-                  <Text style={styles.label}>Preferred Class Mode</Text>
-                  <View style={styles.selectorRow}>
+                {/* Segmented Selector: Class Mode */}
+                <View style={styles.formGroup}>
+                  <Text style={styles.inputLabel}>Class Mode Preference</Text>
+                  <View style={styles.segmentedContainer}>
                     {(['Online', 'Offline', 'Not Sure'] as const).map((mode) => {
-                      const isSelected = selectedClass === mode;
+                      const isActive = selectedClass === mode;
                       return (
                         <TouchableOpacity
                           key={mode}
                           onPress={() => handleClassSelect(mode)}
-                          style={[
-                            styles.selectorItem,
-                            isSelected && styles.selectorItemActive,
-                          ]}
+                          style={[styles.segmentedBtn, isActive && styles.segmentedBtnActive]}
                           activeOpacity={0.8}
                         >
-                          <Text
-                            style={[
-                              styles.selectorText,
-                              isSelected && styles.selectorTextActive,
-                            ]}
-                          >
+                          <Text style={[styles.segmentedBtnText, isActive && styles.segmentedBtnTextActive]}>
                             {mode}
                           </Text>
                         </TouchableOpacity>
@@ -192,50 +181,52 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>(({ onSuccess },
                   </View>
                 </View>
 
-                {/* Message */}
-                <View style={styles.fieldGroup}>
-                  <Text style={styles.label}>Message / Queries (Optional)</Text>
+                {/* Input: Message */}
+                <View style={styles.formGroup}>
+                  <Text style={styles.inputLabel}>Questions / Special Requests (Optional)</Text>
                   <TextInput
-                    style={[styles.input, styles.textArea]}
-                    placeholder="Enter any questions or requirements here..."
-                    placeholderTextColor="rgba(255, 255, 255, 0.3)"
-                    multiline={true}
-                    numberOfLines={4}
                     value={message}
                     onChangeText={setMessage}
+                    multiline
+                    numberOfLines={4}
+                    placeholder="Tell us about your learning goals or specific requirements..."
+                    placeholderTextColor="#8a8a84"
+                    style={[styles.textInput, styles.textArea]}
                   />
                 </View>
 
-                {/* Submit button (ivory pill with arrow circle) */}
+                {/* Submit Button */}
                 <TouchableOpacity
                   onPress={handleSubmit}
                   style={styles.submitButton}
                   activeOpacity={0.9}
                 >
-                  <Text style={styles.submitButtonText}>Reserve My Seat</Text>
+                  <Text style={styles.submitButtonText}>Request Reservation</Text>
                   <View style={styles.arrowCircle}>
-                    <ArrowRightIcon size={10} color="#FFFFFF" />
+                    <ArrowRightIcon size={10} color="#ffffff" />
                   </View>
                 </TouchableOpacity>
               </View>
             )}
           </View>
 
-          {/* Right: WhatsApp Info */}
+          {/* Right: Info Cards (black card) */}
           <View style={[styles.infoCol, isMobile && styles.infoColMobile]}>
             <View style={styles.infoBox}>
               <View style={styles.iconCircle}>
-                <WhatsAppIcon size={32} color="#e85a2b" />
+                <WhatsAppIcon size={26} color="#fde351" />
               </View>
-              <Text style={styles.infoTitle}>Connect on WhatsApp</Text>
+              <Text style={styles.infoTitle}>Connect directly</Text>
               <Text style={styles.infoDesc}>
-                Prefer direct communication? Chat with our team or trainer now to resolve queries and book your class.
+                Have quick questions before enrolling? Connect directly with Trainer Alisha Ahmed via WhatsApp for instant query resolution.
               </Text>
+
+              {/* WhatsApp CTA Card */}
               <View style={styles.whatsappCard}>
-                <Text style={styles.whatsappLabel}>WhatsApp / Call Details</Text>
-                <Text style={styles.whatsappNumber}>{ACADEMY_CONFIG.WHATSAPP_NUMBER}</Text>
+                <Text style={styles.whatsappLabel}>WhatsApp Helpline</Text>
+                <Text style={styles.whatsappNumber}>+91 {ACADEMY_CONFIG.PHONE_NUMBER}</Text>
                 <Text style={styles.whatsappText}>
-                  DM us or WhatsApp now to reserve your seat.
+                  Standard response time is within 1 hour. Open Monday to Saturday.
                 </Text>
               </View>
             </View>
@@ -246,16 +237,16 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>(({ onSuccess },
   );
 });
 
-ContactForm.displayName = 'ContactForm';
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e8e4d6',
   },
   contentInner: {
-    maxWidth: 1100,
+    maxWidth: 1080,
     alignSelf: 'center',
     width: '100%',
   },
@@ -271,14 +262,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   eyebrowText: {
-    color: '#e85a2b',
+    color: '#6a6a64',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: clamp(34, 4.4, 52),
     fontWeight: '800',
     lineHeight: clamp(36, 4.6, 56),
@@ -292,16 +283,17 @@ const styles = StyleSheet.create({
     }),
   },
   subtitle: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 600,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   layoutRow: {
     flexDirection: 'row',
-    gap: 40,
-    justifyContent: 'space-between',
+    gap: 32,
+    alignItems: 'flex-start',
   },
   layoutRowMobile: {
     flexDirection: 'column',
@@ -309,130 +301,135 @@ const styles = StyleSheet.create({
   },
   formCard: {
     flex: 1.3,
-    backgroundColor: '#141416',
-    borderRadius: 30,
-    padding: 36,
+    backgroundColor: '#f6f3eb',
+    borderRadius: 28,
+    padding: 40,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: '#e8e4d6',
     position: 'relative',
     overflow: 'hidden',
-  },
-  glowTopRight: {
-    position: 'absolute',
-    width: 300,
-    height: 300,
-    borderRadius: 150,
-    backgroundColor: 'rgba(232, 90, 43, 0.15)',
-    top: -150,
-    right: -80,
-    filter: 'blur(35px)' as any,
-    pointerEvents: 'none',
-  },
-  form: {
-    gap: 20,
-    zIndex: 1,
-  },
-  fieldRow: {
-    flexDirection: 'row',
-    gap: 16,
-  },
-  fieldRowMobile: {
-    flexDirection: 'column',
-    gap: 20,
-  },
-  fieldGroup: {
-    gap: 8,
-  },
-  label: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  input: {
-    backgroundColor: '#232326',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.06)',
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    color: '#FFFFFF',
-    fontSize: 15,
     ...Platform.select({
       web: {
-        outlineStyle: 'none',
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
       } as any,
     }),
   },
-  inputError: {
-    borderColor: '#EF4444',
+  formInner: {
+    zIndex: 1,
   },
-  textArea: {
-    minHeight: 100,
-    textAlignVertical: 'top',
+  formGroup: {
+    marginBottom: 24,
+    width: '100%',
   },
-  errorText: {
-    color: '#EF4444',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  selectorRow: {
+  formRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 16,
+    marginBottom: 24,
+    width: '100%',
   },
-  selectorItem: {
+  formRowMobile: {
+    flexDirection: 'column',
+    gap: 24,
+    marginBottom: 24,
+  },
+  flexOne: {
     flex: 1,
-    backgroundColor: '#232326',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.06)',
+  },
+  inputLabel: {
+    color: '#0a0a0a',
+    fontSize: 14,
+    fontWeight: '700',
+    marginBottom: 8,
+    letterSpacing: -0.2,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+  },
+  textInput: {
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#e8e4d6',
     borderRadius: 12,
     paddingVertical: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 16,
+    color: '#0a0a0a',
+    fontSize: 14.5,
     ...Platform.select({
       web: {
-        cursor: 'pointer',
+        outlineStyle: 'none' as any,
       },
     }),
   },
-  selectorItemActive: {
-    borderColor: '#e85a2b',
-    backgroundColor: 'rgba(232, 90, 43, 0.1)',
+  textArea: {
+    minHeight: 120,
+    textAlignVertical: 'top',
   },
-  selectorText: {
-    color: '#8B847A',
-    fontSize: 14,
+  inputError: {
+    borderColor: '#ff4d4f',
+  },
+  errorText: {
+    color: '#ff4d4f',
+    fontSize: 12,
+    fontWeight: '600',
+    marginTop: 6,
+  },
+  segmentedContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#e8e4d6',
+    borderRadius: 12,
+    padding: 4,
+    gap: 4,
+  },
+  segmentedBtn: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  segmentedBtnActive: {
+    backgroundColor: '#0a0a0a',
+  },
+  segmentedBtnText: {
+    color: '#6a6a64',
+    fontSize: 13,
     fontWeight: '700',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
-  selectorTextActive: {
-    color: '#e85a2b',
+  segmentedBtnTextActive: {
+    color: '#ffffff',
   },
   submitButton: {
-    backgroundColor: '#FAF9F6',
-    paddingVertical: 10,
-    paddingLeft: 24,
-    paddingRight: 10,
-    borderRadius: 999,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
+    backgroundColor: '#fde351',
+    borderWidth: 1,
+    borderColor: '#d8b020',
+    paddingVertical: 14,
+    borderRadius: 100,
     marginTop: 12,
     ...Platform.select({
       web: {
+        backgroundImage: 'linear-gradient(180deg, #ffe760 0%, #fde351 55%, #f7d130 100%)',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 -1px 2px rgba(180, 140, 30, 0.3) inset',
         cursor: 'pointer',
-      },
+      } as any,
     }),
   },
   submitButtonText: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: 15,
     fontWeight: '700',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   arrowCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#e85a2b',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -440,37 +437,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 40,
-    zIndex: 1,
   },
   successIconCircle: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#e85a2b',
+    backgroundColor: '#fde351',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#d8b020',
+    marginBottom: 20,
   },
   successTitle: {
-    color: '#FFFFFF',
+    color: '#0a0a0a',
     fontSize: 24,
     fontWeight: '800',
     marginBottom: 16,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   successDesc: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 16,
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 450,
     marginBottom: 32,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   boldText: {
-    color: '#e85a2b',
+    color: '#0a0a0a',
     fontWeight: '700',
   },
   resetButton: {
-    borderWidth: 2,
-    borderColor: '#e85a2b',
+    borderWidth: 1,
+    borderColor: '#e8e4d6',
+    backgroundColor: '#ffffff',
     paddingVertical: 10,
     paddingHorizontal: 24,
     borderRadius: 24,
@@ -482,9 +484,10 @@ const styles = StyleSheet.create({
     }),
   },
   resetButtonText: {
-    color: '#FFFFFF',
+    color: '#0a0a0a',
     fontSize: 14,
     fontWeight: '700',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   infoCol: {
     flex: 0.7,
@@ -493,61 +496,66 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   infoBox: {
-    backgroundColor: '#141416',
-    borderRadius: 30,
-    padding: 32,
+    backgroundColor: '#0a0a0a',
+    borderRadius: 28,
+    padding: 36,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.08)',
     alignItems: 'flex-start',
   },
   iconCircle: {
     width: 56,
     height: 56,
-    borderRadius: 16,
-    backgroundColor: 'rgba(232, 90, 43, 0.08)',
+    borderRadius: 28,
+    backgroundColor: 'rgba(253, 227, 81, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
   },
   infoTitle: {
-    color: '#FFFFFF',
+    color: '#ffffff',
     fontSize: 20,
     fontWeight: '800',
     marginBottom: 10,
     letterSpacing: -0.5,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   infoDesc: {
-    color: '#8B847A',
+    color: '#8a8a84',
     fontSize: 15,
     lineHeight: 22,
     marginBottom: 28,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   whatsappCard: {
-    backgroundColor: '#232326',
+    backgroundColor: '#1a1a1a',
     borderRadius: 16,
     padding: 20,
     width: '100%',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.04)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
   },
   whatsappLabel: {
-    color: '#e85a2b',
+    color: '#fde351',
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 6,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   whatsappNumber: {
-    color: '#FFFFFF',
+    color: '#ffffff',
     fontSize: 20,
     fontWeight: '800',
     marginBottom: 10,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   whatsappText: {
-    color: '#8B847A',
+    color: '#8a8a84',
     fontSize: 13,
     lineHeight: 18,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });
 

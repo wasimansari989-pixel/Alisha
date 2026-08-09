@@ -1,42 +1,38 @@
 import React from 'react';
-import { View, Text, StyleSheet, useWindowDimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet, useWindowDimensions, Platform, TouchableOpacity } from 'react-native';
 
 export default function StatsSection() {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
-  const stats = [
-    { val: '100%', label: 'Practical Speaking' },
-    { val: '2', label: 'Class Modes' },
-    { val: '9.8', label: 'Student Rating' },
-    { val: 'Personal', label: 'Individual Focus' },
-  ];
-
   return (
     <View style={styles.container}>
-      <View style={styles.darkCard}>
-        {/* Glow Backdrops - signature Novabrew look */}
-        <View style={styles.glowTopRight} />
-        <View style={styles.glowBottomLeft} />
+      <View style={[styles.statsRow, isMobile && styles.statsRowMobile]}>
+        {/* Stat Dark Card */}
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[styles.statHalf, styles.statDark]}
+        >
+          <View>
+            <Text style={styles.statNumberDark}>100%</Text>
+          </View>
+          <Text style={styles.statDescDark}>
+            Practical speaking drills and interactive conversations in every session.
+          </Text>
+        </TouchableOpacity>
 
-        <View style={styles.grid}>
-          {stats.map((stat, idx) => {
-            const isLast = idx === stats.length - 1;
-            return (
-              <View
-                key={idx}
-                style={[
-                  styles.gridCol,
-                  isMobile && styles.gridColMobile,
-                  !isMobile && !isLast && styles.borderRight,
-                ]}
-              >
-                <Text style={styles.statVal}>{stat.val}</Text>
-                <Text style={styles.statLabel}>{stat.label}</Text>
-              </View>
-            );
-          })}
-        </View>
+        {/* Stat Light Card */}
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[styles.statHalf, styles.statLight]}
+        >
+          <View>
+            <Text style={styles.statNumberLight}>9.8 / 10</Text>
+          </View>
+          <Text style={styles.statDescLight}>
+            Average ratings from 1,200+ students and professionals who achieved fluency.
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -44,91 +40,98 @@ export default function StatsSection() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
-    paddingVertical: 40,
+    backgroundColor: '#ebe9e1',
+    paddingVertical: 32,
     paddingHorizontal: 24,
     zIndex: 5,
   },
-  darkCard: {
-    maxWidth: 1280,
+  statsRow: {
+    flexDirection: 'row',
+    maxWidth: 1080,
     alignSelf: 'center',
     width: '100%',
-    backgroundColor: '#141416',
-    borderRadius: 36,
-    paddingVertical: 56,
-    paddingHorizontal: 36,
-    position: 'relative',
-    overflow: 'hidden',
+    gap: 20,
   },
-  glowTopRight: {
-    position: 'absolute',
-    width: 320,
-    height: 320,
-    borderRadius: 160,
-    backgroundColor: 'rgba(232, 90, 43, 0.25)', // Sunset Amber glow
-    top: -160,
-    right: -60,
-    filter: 'blur(35px)' as any,
-    pointerEvents: 'none',
+  statsRowMobile: {
+    flexDirection: 'column',
   },
-  glowBottomLeft: {
-    position: 'absolute',
-    width: 250,
-    height: 250,
-    borderRadius: 125,
-    backgroundColor: 'rgba(253, 198, 138, 0.1)',
-    bottom: -125,
-    left: '10%',
-    filter: 'blur(30px)' as any,
-    pointerEvents: 'none',
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    zIndex: 1,
-  },
-  gridCol: {
+  statHalf: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-  },
-  gridColMobile: {
-    width: '100%',
-    flex: 'none' as any,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  borderRight: {
-    borderRightWidth: 1,
-    borderRightColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  statVal: {
-    color: '#FAF9F6',
-    fontSize: clamp(34, 4.4, 60),
-    fontWeight: '800',
-    lineHeight: clamp(36, 4.6, 64),
-    marginBottom: 6,
-    letterSpacing: -1.5,
+    borderRadius: 24,
+    padding: 36,
+    minHeight: 220,
+    justifyContent: 'space-between',
     ...Platform.select({
       web: {
-        fontFamily: 'var(--font-display)',
-      },
+        transition: 'transform 0.2s ease',
+        ':hover': {
+          transform: 'translateY(-2px)',
+        },
+      } as any,
     }),
-  } as any,
-  statLabel: {
-    color: '#8B847A',
-    fontSize: 12,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 1.5,
+  },
+  statDark: {
+    backgroundColor: '#0a0a0a',
+    borderWidth: 1,
+    borderColor: '#000000',
+    ...Platform.select({
+      web: {
+        backgroundImage: 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%)',
+        boxShadow: `
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+          0 3px 0 rgba(0, 0, 0, 0.4),
+          0 12px 24px -4px rgba(0, 0, 0, 0.18)
+        `,
+      } as any,
+    }),
+  },
+  statLight: {
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#e8e6dc',
+    ...Platform.select({
+      web: {
+        backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fafaf5 100%)',
+        boxShadow: `
+          inset 0 1px 0 rgba(255, 255, 255, 1),
+          inset 0 -1px 2px rgba(0, 0, 0, 0.02),
+          0 4px 12px rgba(40, 40, 30, 0.05),
+          0 12px 24px -8px rgba(40, 40, 30, 0.07)
+        `,
+      } as any,
+    }),
+  },
+  statNumberDark: {
+    color: '#ffffff',
+    fontSize: 52,
+    fontWeight: '800',
+    letterSpacing: -2.5,
+    lineHeight: 56,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+  },
+  statNumberLight: {
+    color: '#0a0a0a',
+    fontSize: 52,
+    fontWeight: '800',
+    letterSpacing: -2.5,
+    lineHeight: 56,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+  },
+  statDescDark: {
+    color: '#8a8a84',
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '500',
+    marginTop: 16,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+  },
+  statDescLight: {
+    color: '#6a6a64',
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '500',
+    marginTop: 16,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });
-
-function clamp(min: number, val: number, max: number) {
-  const parsed = val * 10;
-  if (parsed < min) return min;
-  if (parsed > max) return max;
-  return parsed;
-}

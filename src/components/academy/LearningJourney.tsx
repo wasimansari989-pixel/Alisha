@@ -79,13 +79,13 @@ export default function LearningJourney() {
       title: 'Grammar & Foundations',
       desc: 'Master the core rules, tenses, sentence structures, and build immediate grammatical confidence.',
       bgStyle: {
-        backgroundColor: '#C8ECC8',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#95C598',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #DCF5DC, #C8ECC8, #95C598)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -95,13 +95,13 @@ export default function LearningJourney() {
       title: 'Vocabulary & Word Power',
       desc: 'Boost your expressive capacity using modern verbs, idioms, phrases, and workplace terminology.',
       bgStyle: {
-        backgroundColor: '#FBC536',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#D99C10',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #FFD96A, #FBC536, #D99C10)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -111,13 +111,13 @@ export default function LearningJourney() {
       title: 'Spoken Fluency Drills',
       desc: 'Engage in daily discussions, dialogs, situational speech drills, and eliminate hesitate blocks.',
       bgStyle: {
-        backgroundColor: '#DCD0EE',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#AB9BD0',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #ECE2F8, #DCD0EE, #AB9BD0)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -127,13 +127,13 @@ export default function LearningJourney() {
       title: 'Professional Presentation',
       desc: 'Perfect your interview frameworks, public speaking, body language, and career communication.',
       bgStyle: {
-        backgroundColor: '#C8ECC8',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#95C598',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #DCF5DC, #C8ECC8, #95C598)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -188,11 +188,11 @@ export default function LearningJourney() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    borderBottomColor: '#e8e4d6',
   },
   contentInner: {
     maxWidth: 1000,
@@ -211,14 +211,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   eyebrowText: {
-    color: '#e85a2b',
+    color: '#6a6a64',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: clamp(34, 4.4, 52),
     fontWeight: '800',
     lineHeight: clamp(36, 4.6, 56),
@@ -232,11 +232,12 @@ const styles = StyleSheet.create({
     }),
   },
   subtitle: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 600,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   timeline: {
     position: 'relative',
@@ -266,15 +267,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   contentCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#f6f3eb',
     borderRadius: 24,
     padding: 32,
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.05)',
+    borderColor: '#e8e4d6',
     boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)',
     ...Platform.select({
       ios: {
-        shadowColor: '#141416',
+        shadowColor: '#0a0a0a',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.03,
         shadowRadius: 10,
@@ -297,28 +298,35 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: '#fde351',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.05)',
+    borderColor: '#d8b020',
+    ...Platform.select({
+      web: {
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+      },
+    }),
   },
   numberText: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: 16,
     fontWeight: '800',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   cardTitle: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: 18,
     fontWeight: '800',
     letterSpacing: -0.5,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   cardDesc: {
-    color: '#141416',
-    opacity: 0.8,
+    color: '#6a6a64',
     fontSize: 14,
     lineHeight: 22,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   centerSpacing: {
     width: 80,

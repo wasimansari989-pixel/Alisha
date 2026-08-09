@@ -8,7 +8,7 @@ import {
   Platform,
   useWindowDimensions,
 } from 'react-native';
-import { MenuIcon, CloseIcon, ArrowRightIcon } from './icons';
+import { MenuIcon, CloseIcon } from './icons';
 
 interface HeaderProps {
   onScrollTo: (section: string) => void;
@@ -18,13 +18,12 @@ interface HeaderProps {
 export default function Header({ onScrollTo, activeSection }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { width } = useWindowDimensions();
-  const isMobile = width < 992;
+  const isMobile = width < 768;
 
   const navItems = [
     { label: 'Courses', target: 'courses' },
     { label: 'Why Us', target: 'why-us' },
     { label: 'Trainer', target: 'trainer' },
-    { label: 'Get in touch', target: 'contact' },
   ];
 
   const handleNavPress = (target: string) => {
@@ -34,13 +33,9 @@ export default function Header({ onScrollTo, activeSection }: HeaderProps) {
 
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.headerInner}>
-        {/* Spherical Logo Dot */}
+      <View style={styles.navPill}>
+        {/* Logo */}
         <Pressable onPress={() => handleNavPress('home')} style={styles.logoContainer}>
-          <View style={styles.logoDotContainer}>
-            <View style={styles.logoDotInner} />
-            <View style={styles.logoDotGlow} />
-          </View>
           <Text style={styles.logoTitle}>learnenglish</Text>
         </Pressable>
 
@@ -53,7 +48,7 @@ export default function Header({ onScrollTo, activeSection }: HeaderProps) {
                 <TouchableOpacity
                   key={item.target}
                   onPress={() => handleNavPress(item.target)}
-                  style={styles.navLink}
+                  style={[styles.navLink, isActive && styles.navLinkActive]}
                   activeOpacity={0.7}
                 >
                   <Text style={[styles.navText, isActive && styles.navTextActive]}>
@@ -67,18 +62,13 @@ export default function Header({ onScrollTo, activeSection }: HeaderProps) {
 
         {/* Action Button & Menu */}
         <View style={styles.rightSection}>
-          {!isMobile && (
-            <TouchableOpacity
-              onPress={() => handleNavPress('contact')}
-              style={styles.headerBtn}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.headerBtnText}>Start a project</Text>
-              <View style={styles.arrowCircle}>
-                <ArrowRightIcon size={10} color="#FFFFFF" />
-              </View>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            onPress={() => handleNavPress('contact')}
+            style={styles.bookCta}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.bookCtaText}>Book a call</Text>
+          </TouchableOpacity>
 
           {isMobile && (
             <TouchableOpacity
@@ -87,9 +77,9 @@ export default function Header({ onScrollTo, activeSection }: HeaderProps) {
               activeOpacity={0.7}
             >
               {mobileMenuOpen ? (
-                <CloseIcon size={24} color="#141416" />
+                <CloseIcon size={18} color="#FFFFFF" />
               ) : (
-                <MenuIcon size={24} color="#141416" />
+                <MenuIcon size={18} color="#FFFFFF" />
               )}
             </TouchableOpacity>
           )}
@@ -123,62 +113,49 @@ export default function Header({ onScrollTo, activeSection }: HeaderProps) {
 const styles = StyleSheet.create({
   headerContainer: {
     position: 'absolute',
-    top: 0,
+    top: 24,
     left: 0,
     right: 0,
     zIndex: 1000,
-    backgroundColor: 'rgba(248, 243, 231, 0.85)',
-    borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
     ...Platform.select({
       web: {
         position: 'fixed' as any,
-        backdropFilter: 'blur(20px)',
       },
     }),
   },
-  headerInner: {
+  navPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 88,
-    paddingHorizontal: 24,
-    maxWidth: 1280,
-    alignSelf: 'center',
-    width: '100%',
+    backgroundColor: '#0a0a0a',
+    borderRadius: 100,
+    padding: 6,
+    gap: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.05)',
+    ...Platform.select({
+      web: {
+        backgroundImage: 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%)',
+        boxShadow: `
+          inset 0 1px 0 rgba(255, 255, 255, 0.08),
+          inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+          0 2px 0 #000,
+          0 6px 14px -2px rgba(0, 0, 0, 0.25),
+          0 16px 30px -10px rgba(0, 0, 0, 0.2)
+        `,
+      } as any,
+    }),
   },
   logoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  logoDotContainer: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: '#e85a2b',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  logoDotInner: {
-    position: 'absolute',
-    inset: 0,
-    borderRadius: 8,
-    backgroundColor: '#d9351f',
-  },
-  logoDotGlow: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 8,
-    backgroundColor: '#fdc68a',
-    opacity: 0.6,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
   },
   logoTitle: {
-    color: '#141416',
-    fontSize: 18,
-    fontWeight: '800',
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: '700',
     letterSpacing: -0.5,
     textTransform: 'lowercase',
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
@@ -186,77 +163,88 @@ const styles = StyleSheet.create({
   headerNav: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 36,
+    gap: 4,
   },
   navLink: {
-    paddingVertical: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 100,
+  },
+  navLinkActive: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
   },
   navText: {
-    color: '#8B847A',
-    fontSize: 14,
-    fontWeight: '600',
+    color: '#cccccc',
+    fontSize: 14.5,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   navTextActive: {
-    color: '#141416',
+    color: '#ffffff',
   },
   rightSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 15,
+    gap: 6,
   },
-  headerBtn: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
+  bookCta: {
+    paddingHorizontal: 20,
     paddingVertical: 10,
-    paddingLeft: 22,
-    paddingRight: 10,
-    backgroundColor: '#141416',
-    borderRadius: 999,
+    backgroundColor: '#fde351',
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: '#d8b020',
     ...Platform.select({
       web: {
+        backgroundImage: 'linear-gradient(180deg, #ffe760 0%, #fde351 55%, #f7d130 100%)',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 -1px 2px rgba(180, 140, 30, 0.3) inset',
         cursor: 'pointer',
-      },
+      } as any,
     }),
   },
-  headerBtnText: {
-    color: '#FAF9F6',
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  arrowCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#e85a2b',
-    alignItems: 'center',
-    justifyContent: 'center',
+  bookCtaText: {
+    color: '#0a0a0a',
+    fontSize: 14.5,
+    fontWeight: '600',
+    letterSpacing: -0.2,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   menuButton: {
-    padding: 6,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   mobileNavContainer: {
-    backgroundColor: '#F8F3E7',
-    paddingBottom: 24,
-    paddingHorizontal: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    position: 'absolute',
+    top: 64,
+    left: 24,
+    right: 24,
+    backgroundColor: '#0a0a0a',
+    borderRadius: 24,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    ...Platform.select({
+      web: {
+        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.3)',
+      },
+    }),
   },
   mobileNavLink: {
-    paddingVertical: 16,
+    paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(20, 20, 22, 0.05)',
+    borderBottomColor: 'rgba(255, 255, 255, 0.05)',
   },
   mobileNavText: {
-    color: '#8B847A',
+    color: '#cccccc',
     fontSize: 15,
     fontWeight: '600',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   mobileNavTextActive: {
-    color: '#141416',
-    fontWeight: '700',
+    color: '#ffffff',
   },
 });

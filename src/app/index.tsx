@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useRef, useState } from 'react';
+import React, { useRef, useState, Suspense, lazy } from 'react';
 import {
   Platform,
   SafeAreaView,
@@ -11,21 +11,24 @@ import {
   useWindowDimensions,
 } from 'react-native';
 
-// Academy Component Imports
-import AudienceSection from '@/components/academy/AudienceSection';
-import CTASection from '@/components/academy/CTASection';
-import ClassModeSection from '@/components/academy/ClassModeSection';
-import ContactForm, { ContactFormRef } from '@/components/academy/ContactForm';
-import CoursesSection from '@/components/academy/CoursesSection';
-import FAQSection from '@/components/academy/FAQSection';
-import Footer from '@/components/academy/Footer';
+// Static Imports (visible immediately above-the-fold)
 import Header from '@/components/academy/Header';
 import HeroSection from '@/components/academy/HeroSection';
-import LearningJourney from '@/components/academy/LearningJourney';
-import StatsSection from '@/components/academy/StatsSection';
-import TrainerSection from '@/components/academy/TrainerSection';
-import WhyUsSection from '@/components/academy/WhyUsSection';
 import { ArrowRightIcon } from '@/components/academy/icons';
+import type { ContactFormRef } from '@/components/academy/ContactForm';
+
+// Lazy-Loaded Imports (off-screen sections loaded progressively)
+const AudienceSection = lazy(() => import('@/components/academy/AudienceSection'));
+const CTASection = lazy(() => import('@/components/academy/CTASection'));
+const ClassModeSection = lazy(() => import('@/components/academy/ClassModeSection'));
+const ContactForm = lazy(() => import('@/components/academy/ContactForm'));
+const CoursesSection = lazy(() => import('@/components/academy/CoursesSection'));
+const FAQSection = lazy(() => import('@/components/academy/FAQSection'));
+const Footer = lazy(() => import('@/components/academy/Footer'));
+const LearningJourney = lazy(() => import('@/components/academy/LearningJourney'));
+const StatsSection = lazy(() => import('@/components/academy/StatsSection'));
+const TrainerSection = lazy(() => import('@/components/academy/TrainerSection'));
+const WhyUsSection = lazy(() => import('@/components/academy/WhyUsSection'));
 
 export default function HomeScreen() {
   const { width } = useWindowDimensions();
@@ -103,54 +106,56 @@ export default function HomeScreen() {
           <HeroSection onScrollTo={scrollToSection} />
         </View>
 
-        {/* 2. Trust Stats Section */}
-        <StatsSection />
+        <Suspense fallback={<View style={{ height: 200, backgroundColor: '#ebe9e1' }} />}>
+          {/* 2. Trust Stats Section */}
+          <StatsSection />
 
-        {/* 3. Why Us Section */}
-        <View
-          onLayout={(e) => handleSectionLayout('why-us', e.nativeEvent.layout.y)}
-        >
-          <WhyUsSection />
-        </View>
+          {/* 3. Why Us Section */}
+          <View
+            onLayout={(e) => handleSectionLayout('why-us', e.nativeEvent.layout.y)}
+          >
+            <WhyUsSection />
+          </View>
 
-        {/* 4. Courses Grid Section */}
-        <View
-          onLayout={(e) => handleSectionLayout('courses', e.nativeEvent.layout.y)}
-        >
-          <CoursesSection onEnrollPress={() => scrollToSection('contact')} />
-        </View>
+          {/* 4. Courses Grid Section */}
+          <View
+            onLayout={(e) => handleSectionLayout('courses', e.nativeEvent.layout.y)}
+          >
+            <CoursesSection onEnrollPress={() => scrollToSection('contact')} />
+          </View>
 
-        {/* 5. Learning Journey Timeline */}
-        <LearningJourney />
+          {/* 5. Learning Journey Timeline */}
+          <LearningJourney />
 
-        {/* 6. Class Mode Selection (Online vs Offline) */}
-        <ClassModeSection onSelectMode={handleSelectClassMode} />
+          {/* 6. Class Mode Selection (Online vs Offline) */}
+          <ClassModeSection onSelectMode={handleSelectClassMode} />
 
-        {/* 7. Trainer Profile Section */}
-        <View
-          onLayout={(e) => handleSectionLayout('trainer', e.nativeEvent.layout.y)}
-        >
-          <TrainerSection />
-        </View>
+          {/* 7. Trainer Profile Section */}
+          <View
+            onLayout={(e) => handleSectionLayout('trainer', e.nativeEvent.layout.y)}
+          >
+            <TrainerSection />
+          </View>
 
-        {/* 8. Target Audience Section */}
-        <AudienceSection />
+          {/* 8. Target Audience Section */}
+          <AudienceSection />
 
-        {/* 9. FAQs Accordion Section */}
-        <FAQSection />
+          {/* 9. FAQs Accordion Section */}
+          <FAQSection />
 
-        {/* 10. Testimonial CTA Banner */}
-        <CTASection onJoinPress={() => scrollToSection('contact')} />
+          {/* 10. Testimonial CTA Banner */}
+          <CTASection onJoinPress={() => scrollToSection('contact')} />
 
-        {/* 11. Contact Form Section */}
-        <View
-          onLayout={(e) => handleSectionLayout('contact', e.nativeEvent.layout.y)}
-        >
-          <ContactForm ref={contactFormRef} />
-        </View>
+          {/* 11. Contact Form Section */}
+          <View
+            onLayout={(e) => handleSectionLayout('contact', e.nativeEvent.layout.y)}
+          >
+            <ContactForm ref={contactFormRef} />
+          </View>
 
-        {/* 12. Footer */}
-        <Footer onScrollTo={scrollToSection} />
+          {/* 12. Footer */}
+          <Footer onScrollTo={scrollToSection} />
+        </Suspense>
       </ScrollView>
 
       {/* Mobile Sticky bottom CTA button */}

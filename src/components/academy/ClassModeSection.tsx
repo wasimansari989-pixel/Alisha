@@ -92,7 +92,7 @@ function ClassModeCard({ item, onSelect }: { item: CardItem; onSelect: () => voi
         >
           <Text style={styles.actionBtnText}>{item.btnText}</Text>
           <View style={styles.arrowIconWrapper}>
-            <ArrowRightIcon size={10} color="#141416" />
+            <ArrowRightIcon size={10} color="#ffffff" />
           </View>
         </TouchableOpacity>
       </View>
@@ -111,17 +111,17 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
       eyebrow: 'Flexible',
       title: 'Every screen. Every session. Anywhere.',
       desc: 'Attend daily live video workshops, get instant pronunciation corrections, and practice conversational dialogue from the comfort of your home.',
-      icon: <OnlineIcon size={22} color="#141416" />,
+      icon: <OnlineIcon size={22} color="#fde351" />,
       btnText: 'Choose Online',
       mode: 'Online',
       bgStyle: {
-        backgroundColor: '#C8ECC8',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#95C598',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #DCF5DC, #C8ECC8, #95C598)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -131,17 +131,17 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
       eyebrow: 'Interactive',
       title: 'Face-to-face drills. Direct feedback.',
       desc: 'Engage in physical classroom debates, team roleplays, networking sessions, and real-time posture corrections under Alisha\'s personal guidance.',
-      icon: <OfflineIcon size={22} color="#141416" />,
+      icon: <OfflineIcon size={22} color="#fde351" />,
       btnText: 'Choose Offline',
       mode: 'Offline',
       bgStyle: {
-        backgroundColor: '#FBC536',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#D99C10',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #FFD96A, #FBC536, #D99C10)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -151,17 +151,17 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
       eyebrow: 'Personalized',
       title: 'Tailored lessons. Custom timings.',
       desc: 'Receive 1-on-1 coaching customized for your specific career path, mock interview requirements, or IELTS speaking tests with flexible batch slots.',
-      icon: <PersonalityIcon size={22} color="#141416" />,
+      icon: <PersonalityIcon size={22} color="#fde351" />,
       btnText: 'Choose 1-on-1',
       mode: 'Not Sure',
       bgStyle: {
-        backgroundColor: '#DCD0EE',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#AB9BD0',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #ECE2F8, #DCD0EE, #AB9BD0)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -203,14 +203,14 @@ export default function ClassModeSection({ onSelectMode }: ClassModeSectionProps
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    borderBottomColor: '#e8e4d6',
   },
   contentInner: {
-    maxWidth: 1200,
+    maxWidth: 1080,
     alignSelf: 'center',
     width: '100%',
   },
@@ -226,14 +226,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   eyebrowText: {
-    color: '#e85a2b',
+    color: '#6a6a64',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: clamp(34, 4.4, 52),
     fontWeight: '800',
     lineHeight: clamp(36, 4.6, 56),
@@ -247,15 +247,16 @@ const styles = StyleSheet.create({
     }),
   },
   subtitle: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 600,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   grid: {
     flexDirection: 'row',
-    gap: 24,
+    gap: 20,
     justifyContent: 'center',
   },
   gridMobile: {
@@ -263,7 +264,7 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   gridItemDesktop: {
-    width: '31.8%',
+    width: '32%',
   },
   gridItemTablet: {
     width: '48%',
@@ -272,16 +273,16 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   card: {
-    borderRadius: 36,
+    borderRadius: 28,
     padding: 36,
     minHeight: 420,
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.06)',
+    borderColor: '#e8e4d6',
     boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)',
     ...Platform.select({
       ios: {
-        shadowColor: '#141416',
+        shadowColor: '#0a0a0a',
         shadowOffset: { width: 0, height: 6 },
         shadowOpacity: 0.05,
         shadowRadius: 12,
@@ -303,16 +304,16 @@ const styles = StyleSheet.create({
   cardNum: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#141416',
+    color: '#6a6a64',
     fontFamily: Platform.OS === 'web' ? 'var(--font-mono)' : 'monospace',
-    opacity: 0.65,
+    opacity: 0.8,
   },
   cardEyebrow: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#141416',
+    color: '#6a6a64',
     fontFamily: Platform.OS === 'web' ? 'var(--font-mono)' : 'monospace',
-    opacity: 0.65,
+    opacity: 0.8,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
@@ -320,7 +321,7 @@ const styles = StyleSheet.create({
     fontSize: clamp(24, 2.8, 30),
     lineHeight: clamp(28, 3.2, 36),
     fontWeight: '800',
-    color: '#141416',
+    color: '#0a0a0a',
     marginBottom: 16,
     letterSpacing: -1,
     ...Platform.select({
@@ -332,9 +333,9 @@ const styles = StyleSheet.create({
   cardDesc: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#141416',
-    opacity: 0.8,
+    color: '#6a6a64',
     marginBottom: 36,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   cardFooter: {
     flexDirection: 'row',
@@ -346,14 +347,14 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.05)',
+    borderColor: '#0a0a0a',
   },
   actionBtn: {
-    backgroundColor: '#FAF9F6',
+    backgroundColor: '#ffffff',
     paddingVertical: 10,
     paddingLeft: 22,
     paddingRight: 10,
@@ -362,7 +363,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.05)',
+    borderColor: '#e8e4d6',
     ...Platform.select({
       web: {
         cursor: 'pointer',
@@ -370,15 +371,16 @@ const styles = StyleSheet.create({
     }),
   },
   actionBtnText: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: 13,
     fontWeight: '700',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   arrowIconWrapper: {
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: 'rgba(20, 20, 22, 0.05)',
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
   },

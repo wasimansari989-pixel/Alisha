@@ -71,8 +71,8 @@ export default function TrainerSection() {
       // Clear main canvas
       ctx.clearRect(0, 0, cardWidth, cardHeight);
       
-      // Card background is deep charcoal #141416
-      ctx.fillStyle = '#141416';
+      // Card background is deep charcoal #0a0a0a
+      ctx.fillStyle = '#0a0a0a';
       ctx.fillRect(0, 0, cardWidth, cardHeight);
 
       const dotSpacingX = cardWidth / sampleWidth;
@@ -158,7 +158,7 @@ export default function TrainerSection() {
                 </View>
               </View>
               <View style={styles.badge}>
-                <PersonalityIcon size={14} color="#FFFFFF" />
+                <PersonalityIcon size={14} color="#0a0a0a" />
                 <Text style={styles.badgeText}>Expert Tutor</Text>
               </View>
             </View>
@@ -191,7 +191,7 @@ export default function TrainerSection() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
   },
@@ -201,12 +201,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   trainerCard: {
-    backgroundColor: '#141416',
+    backgroundColor: '#0a0a0a',
     borderRadius: 36,
     paddingVertical: 64,
     paddingHorizontal: 48,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.08)',
     position: 'relative',
     overflow: 'hidden',
   },
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     borderRadius: 200,
-    backgroundColor: 'rgba(232, 90, 43, 0.22)',
+    backgroundColor: 'rgba(253, 227, 81, 0.15)',
     top: -200,
     right: -100,
     filter: 'blur(45px)' as any,
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 140,
-    backgroundColor: 'rgba(253, 198, 138, 0.1)',
+    backgroundColor: 'rgba(253, 227, 81, 0.06)',
     bottom: -140,
     left: '10%',
     filter: 'blur(35px)' as any,
@@ -278,12 +278,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
     padding: 6,
-    backgroundColor: '#141416',
+    backgroundColor: '#0a0a0a',
   },
   avatarInner: {
     flex: 1,
     borderRadius: 80,
-    backgroundColor: '#FAF9F6',
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: '#e85a2b',
+    backgroundColor: '#fde351',
     borderRadius: 20,
     paddingVertical: 6,
     paddingHorizontal: 16,
@@ -304,9 +304,10 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   badgeText: {
-    color: '#FAF9F6',
+    color: '#0a0a0a',
     fontSize: 12,
     fontWeight: '700',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   rightCol: {
     flex: 1.1,
@@ -317,37 +318,42 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   sectionSubtitle: {
-    color: '#e85a2b',
+    color: '#fde351',
     fontSize: 14,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 1.5,
     marginBottom: 8,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   trainerName: {
-    color: '#FAF9F6',
+    color: '#ffffff',
     fontSize: 32,
     fontWeight: '800',
     marginBottom: 6,
     letterSpacing: -1,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   trainerRole: {
-    color: '#8B847A',
+    color: '#8a8a84',
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 20,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   trainerBio: {
-    color: '#8B847A',
+    color: '#8a8a84',
     fontSize: 15,
     lineHeight: 24,
     marginBottom: 28,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   skillsHeading: {
-    color: '#FAF9F6',
+    color: '#ffffff',
     fontSize: 15,
     fontWeight: '700',
     marginBottom: 16,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   chipsContainer: {
     flexDirection: 'row',
@@ -355,7 +361,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   chip: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'rgba(255, 255, 255, 0.04)',
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
     borderRadius: 20,
@@ -363,8 +369,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   chipText: {
-    color: '#FAF9F6',
+    color: '#ffffff',
     fontSize: 13,
     fontWeight: '600',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });

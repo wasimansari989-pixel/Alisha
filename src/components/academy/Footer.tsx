@@ -119,15 +119,15 @@ export default function Footer({ onScrollTo }: FooterProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#141416',
+    backgroundColor: '#ebe9e1',
     paddingTop: 64,
     paddingBottom: 32,
     paddingHorizontal: 24,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255, 255, 255, 0.05)',
+    borderTopColor: '#e8e4d6',
   },
   contentInner: {
-    maxWidth: 1280,
+    maxWidth: 1080,
     alignSelf: 'center',
     width: '100%',
   },
@@ -174,17 +174,19 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   brandTitle: {
-    color: '#FFFFFF',
+    color: '#0a0a0a',
     fontSize: 18,
     fontWeight: '800',
     letterSpacing: -0.5,
     textTransform: 'lowercase',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   brandTagline: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 14,
     lineHeight: 22,
     maxWidth: 320,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   linksCol: {
     flex: 0.8,
@@ -194,10 +196,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionHeader: {
-    color: '#FFFFFF',
+    color: '#0a0a0a',
     fontSize: 14,
     fontWeight: '700',
     letterSpacing: 0.5,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   linksList: {
     gap: 12,
@@ -207,19 +210,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   linkText: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 14,
     fontWeight: '600',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   socialsCol: {
     flex: 1,
     gap: 16,
   },
   connectText: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 14,
     lineHeight: 22,
     maxWidth: 280,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   socialRow: {
     flexDirection: 'row',
@@ -229,15 +234,15 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#232326',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.04)',
+    borderWidth: 1,
+    borderColor: '#e8e4d6',
   },
   divider: {
     height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: '#e8e4d6',
     marginBottom: 24,
   },
   bottomBar: {
@@ -256,11 +261,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   bulletSeparator: {
-    color: 'rgba(255, 255, 255, 0.1)',
+    color: 'rgba(10, 10, 10, 0.1)',
     fontSize: 10,
   },
   copyText: {
-    color: 'rgba(139, 132, 122, 0.5)',
-    fontSize: 12,
+    color: '#6a6a64',
+    fontSize: 13,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });

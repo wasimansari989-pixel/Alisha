@@ -73,65 +73,65 @@ export default function WhyUsSection() {
 
   const features: FeatureItem[] = [
     {
-      icon: <MicrophoneIcon size={26} color="#141416" />,
+      icon: <MicrophoneIcon size={22} color="#fde351" />,
       title: 'Practical Speaking Focus',
       desc: 'Instead of just memorizing grammar tenses, engage directly in interactive conversation drills from session one.',
       bgStyle: {
-        backgroundColor: '#C8ECC8',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#95C598',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #DCF5DC, #C8ECC8, #95C598)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
     },
     {
-      icon: <BookIcon size={26} color="#141416" />,
+      icon: <BookIcon size={22} color="#fde351" />,
       title: 'Expert Personal Coaching',
       desc: 'Learn directly from Trainer Alisha Ahmed, receiving personal guidance and speaking corrections.',
       bgStyle: {
-        backgroundColor: '#FBC536',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#D99C10',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #FFD96A, #FBC536, #D99C10)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
     },
     {
-      icon: <VocabularyIcon size={26} color="#141416" />,
+      icon: <VocabularyIcon size={22} color="#fde351" />,
       title: 'Daily Speaking Activities',
       desc: 'Participate in group discussions, roleplay dialogues, and vocabulary boost drills to eliminate hesitation.',
       bgStyle: {
-        backgroundColor: '#DCD0EE',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#AB9BD0',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #ECE2F8, #DCD0EE, #AB9BD0)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
     },
     {
-      icon: <LevelIcon size={26} color="#141416" />,
+      icon: <LevelIcon size={22} color="#fde351" />,
       title: 'Structured Syllabus',
       desc: 'A comprehensive study path designed specifically for school kids, college students, job seekers, and business owners.',
       bgStyle: {
-        backgroundColor: '#C8ECC8',
+        backgroundColor: '#f6f3eb',
         borderWidth: 1,
-        borderColor: '#95C598',
+        borderColor: '#e8e4d6',
         ...Platform.select({
           web: {
-            background: 'linear-gradient(135deg, #DCF5DC, #C8ECC8, #95C598)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 30px -10px rgba(0, 0, 0, 0.05)',
+            backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+            boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
           } as any,
         }),
       },
@@ -173,11 +173,11 @@ export default function WhyUsSection() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    borderBottomColor: '#e8e4d6',
   },
   contentInner: {
     maxWidth: 1280,
@@ -196,14 +196,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   eyebrowText: {
-    color: '#e85a2b',
+    color: '#6a6a64',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: clamp(34, 4.4, 52),
     fontWeight: '800',
     lineHeight: clamp(36, 4.6, 56),
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     }),
   },
   subtitle: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
@@ -236,13 +236,13 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     padding: 32,
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.05)',
+    borderColor: '#e8e4d6',
     alignItems: 'flex-start',
     minHeight: 280,
     boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)',
     ...Platform.select({
       ios: {
-        shadowColor: '#141416',
+        shadowColor: '#0a0a0a',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.03,
         shadowRadius: 10,
@@ -270,25 +270,26 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: 'rgba(20, 20, 22, 0.05)',
+    borderColor: '#0a0a0a',
   },
   cardTitle: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: 18,
     fontWeight: '800',
     marginBottom: 10,
     letterSpacing: -0.5,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   cardDesc: {
-    color: '#141416',
-    opacity: 0.8,
+    color: '#6a6a64',
     fontSize: 14,
     lineHeight: 22,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });
 

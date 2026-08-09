@@ -67,9 +67,6 @@ export default function FAQSection() {
             const isExpanded = expandedIndex === idx;
             return (
               <View key={idx} style={[styles.faqCard, isExpanded && styles.faqCardExpanded]}>
-                {/* Glow Backdrop */}
-                {isExpanded && <View style={styles.glowCorner} />}
-
                 <TouchableOpacity
                   onPress={() => toggleExpand(idx)}
                   style={styles.faqHeader}
@@ -78,9 +75,9 @@ export default function FAQSection() {
                   <Text style={styles.questionText}>{faq.q}</Text>
                   <View style={[styles.arrowCircle, isExpanded && styles.arrowCircleActive]}>
                     {isExpanded ? (
-                      <ChevronUpIcon size={16} color="#FAF9F6" />
+                      <ChevronUpIcon size={16} color="#ffffff" />
                     ) : (
-                      <ChevronDownIcon size={16} color="#8B847A" />
+                      <ChevronDownIcon size={16} color="#6a6a64" />
                     )}
                   </View>
                 </TouchableOpacity>
@@ -102,11 +99,11 @@ export default function FAQSection() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    borderBottomColor: '#e8e4d6',
   },
   contentInner: {
     maxWidth: 800,
@@ -125,14 +122,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   eyebrowText: {
-    color: '#e85a2b',
+    color: '#6a6a64',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: clamp(34, 4.4, 52),
     fontWeight: '800',
     lineHeight: clamp(36, 4.6, 56),
@@ -146,36 +143,32 @@ const styles = StyleSheet.create({
     }),
   },
   subtitle: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 600,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   faqList: {
     gap: 16,
   },
   faqCard: {
-    backgroundColor: '#141416',
+    backgroundColor: '#f6f3eb',
     borderRadius: 22,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: '#e8e4d6',
     overflow: 'hidden',
     position: 'relative',
+    ...Platform.select({
+      web: {
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04)',
+      } as any,
+    }),
   },
   faqCardExpanded: {
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  glowCorner: {
-    position: 'absolute',
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: 'rgba(232, 90, 43, 0.08)',
-    top: -100,
-    right: -50,
-    filter: 'blur(25px)' as any,
-    pointerEvents: 'none',
+    borderColor: '#e8e4d6',
   },
   faqHeader: {
     flexDirection: 'row',
@@ -192,25 +185,26 @@ const styles = StyleSheet.create({
     }),
   },
   questionText: {
-    color: '#FAF9F6',
+    color: '#0a0a0a',
     fontSize: 17,
     fontWeight: '800',
     flex: 1,
     letterSpacing: -0.2,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   arrowCircle: {
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#232326',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: '#e8e4d6',
   },
   arrowCircleActive: {
-    backgroundColor: '#e85a2b',
-    borderColor: '#e85a2b',
+    backgroundColor: '#0a0a0a',
+    borderColor: '#0a0a0a',
   },
   answerContainer: {
     paddingHorizontal: 28,
@@ -219,14 +213,15 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    backgroundColor: '#e8e4d6',
     marginBottom: 16,
   },
   answerText: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     fontWeight: '600',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });
 

@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Platform, Image } from 'react-native';
 import { GraduationIcon, ArrowRightIcon } from './icons';
+import Svg, { Path } from 'react-native-svg';
 
 interface CTASectionProps {
   onJoinPress: () => void;
@@ -10,25 +11,71 @@ export default function CTASection({ onJoinPress }: CTASectionProps) {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
+  const testimonials = [
+    {
+      p1: "The final speaking results exceeded my expectations.",
+      p2: "Alisha's direct feedback is incredibly effective!",
+      initials: "AA.",
+      avatars: ['https://i.pravatar.cc/80?img=12', 'https://i.pravatar.cc/80?img=47'],
+    },
+    {
+      p1: "Best English course I've ever taken.",
+      p2: "Cleared my job interview in just 6 weeks.",
+      initials: "MK.",
+      avatars: ['https://i.pravatar.cc/80?img=32', 'https://i.pravatar.cc/80?img=68'],
+    },
+    {
+      p1: "Excellent structured tenses & vocabulary drills.",
+      p2: "Boosted my confidence significantly.",
+      initials: "JR.",
+      avatars: ['https://i.pravatar.cc/80?img=52', 'https://i.pravatar.cc/80?img=60'],
+    },
+  ];
+
+  const [tIndex, setTIndex] = useState(0);
+
+  const cycleTestimonial = () => {
+    setTIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const currentT = testimonials[tIndex];
+
   return (
     <View style={styles.container}>
-      {/* Block 1: Success Story Placeholder */}
-      <View style={styles.successPlaceholderCard}>
-        <Text style={styles.successTitle}>Your Success Story Could Be Next</Text>
-        <Text style={styles.successDesc}>
-          Start your English learning journey today and build the confidence to communicate better in school, college, jobs, or business.
-        </Text>
-      </View>
+      {/* Block 1: Success Story Testimonial (FirstPlace quote style) */}
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={cycleTestimonial}
+        style={styles.testimonialCard}
+      >
+        <Text style={styles.quoteMark}>&ldquo;</Text>
+        <View style={styles.testimonialTextContainer}>
+          <Text style={styles.testimonialText}>{currentT.p1}</Text>
+          <Text style={styles.testimonialText}>{currentT.p2}</Text>
+        </View>
+
+        <View style={styles.avatarsRow}>
+          {currentT.avatars.map((url, idx) => (
+            <View key={idx} style={[styles.avatarMini, idx > 0 && { marginLeft: -10 }]}>
+              <Image source={{ uri: url }} style={styles.avatarImg} />
+            </View>
+          ))}
+          <View style={styles.authorBadge}>
+            <Text style={styles.authorInitials}>{currentT.initials}</Text>
+          </View>
+          <Text style={styles.clickHint}>— Click to swap success stories</Text>
+        </View>
+      </TouchableOpacity>
 
       {/* Block 2: Final Action Banner */}
       <View style={styles.bannerContainer}>
-        {/* Glow Backdrops - Novabrew-style */}
+        {/* Glow Backdrops - FirstPlace gold */}
         <View style={styles.glowTopRight} />
         <View style={styles.glowBottomLeft} />
 
         <View style={styles.bannerInner}>
           <View style={styles.badge}>
-            <GraduationIcon size={14} color="#141416" />
+            <GraduationIcon size={14} color="#0a0a0a" />
             <Text style={styles.badgeText}>Admissions Open Now!</Text>
           </View>
 
@@ -41,15 +88,24 @@ export default function CTASection({ onJoinPress }: CTASectionProps) {
           </Text>
 
           <View style={[styles.btnGroup, isMobile && styles.btnGroupMobile]}>
-            {/* White/Ivory Pill button with sunset gradient arrow circle */}
+            {/* Yellow Big CTA */}
             <TouchableOpacity
               onPress={onJoinPress}
-              style={styles.primaryButton}
-              activeOpacity={0.8}
+              style={styles.ctaYellow}
+              activeOpacity={0.9}
             >
-              <Text style={styles.primaryButtonText}>Join Now</Text>
-              <View style={styles.arrowCircle}>
-                <ArrowRightIcon size={10} color="#FFFFFF" />
+              <Text style={styles.ctaText}>Book a call</Text>
+              <View style={styles.ctaCircle}>
+                <Svg viewBox="0 0 16 16" style={styles.ctaCircleSvg}>
+                  <Path
+                    d="M 5 11 L 11 5 M 7 5 L 11 5 L 11 9"
+                    stroke="#ffffff"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
+                  />
+                </Svg>
               </View>
             </TouchableOpacity>
 
@@ -69,73 +125,112 @@ export default function CTASection({ onJoinPress }: CTASectionProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
     alignItems: 'center',
     gap: 56,
   },
-  successPlaceholderCard: {
-    maxWidth: 800,
+  testimonialCard: {
+    maxWidth: 1080,
     width: '100%',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1.5,
-    borderColor: '#dad2bf',
-    borderRadius: 22,
+    backgroundColor: '#f6f3eb',
+    borderWidth: 1,
+    borderColor: '#e8e4d6',
+    borderRadius: 28,
     padding: 40,
+    justifyContent: 'space-between',
+    minHeight: 280,
+    ...Platform.select({
+      web: {
+        backgroundImage: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04), 0 16px 28px -8px rgba(40, 40, 30, 0.06)',
+        cursor: 'pointer',
+      } as any,
+    }),
+  },
+  quoteMark: {
+    fontSize: 52,
+    fontWeight: '700',
+    lineHeight: 26,
+    color: '#0a0a0a',
+    marginBottom: 20,
+    letterSpacing: -2,
+  },
+  testimonialTextContainer: {
+    marginBottom: 22,
+  },
+  testimonialText: {
+    color: '#0a0a0a',
+    fontSize: 18,
+    fontWeight: '500',
+    letterSpacing: -0.2,
+    lineHeight: 28,
+    marginBottom: 8,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
+  },
+  avatarsRow: {
+    flexDirection: 'row',
     alignItems: 'center',
-    textAlign: 'center',
+  },
+  avatarMini: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#f6f3eb',
+    overflow: 'hidden',
+    backgroundColor: '#6e2418',
+  },
+  avatarImg: {
+    width: '100%',
+    height: '100%',
+  },
+  authorBadge: {
+    marginLeft: 8,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#fde351',
+    borderWidth: 2,
+    borderColor: '#f6f3eb',
+    alignItems: 'center',
+    justifyContent: 'center',
     ...Platform.select({
-      ios: {
-        shadowColor: '#141416',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.02,
-        shadowRadius: 10,
-      },
-      android: {
-        elevation: 1,
-      },
       web: {
-        boxShadow: '0 8px 16px rgba(20, 20, 22, 0.01)',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.5)',
       },
     }),
   },
-  successTitle: {
-    color: '#141416',
-    fontSize: 24,
-    fontWeight: '800',
-    marginBottom: 12,
-    textAlign: 'center',
-    letterSpacing: -0.5,
-    ...Platform.select({
-      web: {
-        fontFamily: 'var(--font-display)',
-      },
-    }),
+  authorInitials: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#0a0a0a',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
-  successDesc: {
-    color: '#8B847A',
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: 'center',
-    maxWidth: 600,
+  clickHint: {
+    marginLeft: 12,
+    color: '#6a6a64',
+    fontSize: 13,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   bannerContainer: {
     maxWidth: 1080,
     width: '100%',
-    backgroundColor: '#141416',
+    backgroundColor: '#0a0a0a',
     borderRadius: 36,
     overflow: 'hidden',
     position: 'relative',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.08)',
   },
   glowTopRight: {
     position: 'absolute',
     width: 450,
     height: 450,
     borderRadius: 225,
-    backgroundColor: 'rgba(232, 90, 43, 0.22)',
+    backgroundColor: 'rgba(253, 227, 81, 0.15)',
     top: -225,
     right: -100,
     filter: 'blur(45px)' as any,
@@ -146,7 +241,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 140,
-    backgroundColor: 'rgba(253, 198, 138, 0.1)',
+    backgroundColor: 'rgba(253, 227, 81, 0.06)',
     bottom: -140,
     left: '10%',
     filter: 'blur(35px)' as any,
@@ -162,17 +257,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    backgroundColor: '#e85a2b',
+    backgroundColor: '#fde351',
     borderRadius: 20,
     paddingVertical: 6,
     paddingHorizontal: 16,
     marginBottom: 24,
   },
   badgeText: {
-    color: '#FAF9F6',
+    color: '#0a0a0a',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 1,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   bannerTitle: {
     color: '#FFFFFF',
@@ -189,59 +285,83 @@ const styles = StyleSheet.create({
     }),
   },
   bannerSubtitle: {
-    color: '#8B847A',
+    color: '#8a8a84',
     fontSize: 16,
     marginBottom: 36,
     textAlign: 'center',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   btnGroup: {
     flexDirection: 'row',
     gap: 16,
     width: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   btnGroupMobile: {
     flexDirection: 'column',
     alignItems: 'center',
   },
-  primaryButton: {
-    backgroundColor: '#FAF9F6',
-    paddingVertical: 10,
-    paddingLeft: 24,
-    paddingRight: 10,
-    borderRadius: 999,
-    minWidth: 200,
+  ctaYellow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: 12,
+    paddingLeft: 28,
+    paddingRight: 14,
+    paddingVertical: 14,
+    backgroundColor: '#fde351',
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: '#d8b020',
     ...Platform.select({
       web: {
+        backgroundImage: 'linear-gradient(180deg, #ffe760 0%, #fde351 55%, #f7d130 100%)',
+        boxShadow: `
+          inset 0 1px 0 rgba(255, 255, 255, 0.7),
+          inset 0 -2px 4px rgba(180, 140, 30, 0.3),
+          0 2px 0 #d8a920,
+          0 4px 0 #a87810
+        `,
         cursor: 'pointer',
-      },
+        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+        ':hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: `
+            inset 0 1px 0 rgba(255, 255, 255, 0.7),
+            inset 0 -2px 4px rgba(180, 140, 30, 0.3),
+            0 3px 0 #d8a920,
+            0 6px 0 #a87810
+          `,
+        },
+      } as any,
     }),
   },
-  primaryButtonText: {
-    color: '#141416',
-    fontSize: 14,
-    fontWeight: '700',
+  ctaText: {
+    color: '#0a0a0a',
+    fontSize: 17,
+    fontWeight: '600',
+    letterSpacing: -0.2,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
-  arrowCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#e85a2b',
+  ctaCircle: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  ctaCircleSvg: {
+    width: 14,
+    height: 14,
   },
   secondaryButton: {
     backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: '#e85a2b',
-    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 999,
-    minWidth: 200,
     alignItems: 'center',
     justifyContent: 'center',
     ...Platform.select({
@@ -252,8 +372,9 @@ const styles = StyleSheet.create({
   },
   secondaryButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '700',
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });
 
