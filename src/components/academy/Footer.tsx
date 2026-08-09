@@ -22,7 +22,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
       <View style={styles.contentInner}>
         <View style={[styles.mainRow, isMobile && styles.mainRowMobile]}>
           {/* Brand Col */}
-          <View style={[styles.brandCol, isMobile && styles.brandColMobile]}>
+          <View style={[styles.brandCol, !isMobile && { flex: 1.2 }, isMobile && styles.brandColMobile]}>
             <View style={styles.logoRow}>
               {/* Spherical Logo Dot */}
               <View style={styles.logoDotContainer}>
@@ -37,7 +37,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
           </View>
 
           {/* Links Col */}
-          <View style={[styles.linksCol, isMobile && styles.linksColMobile]}>
+          <View style={[styles.linksCol, !isMobile && { flex: 0.8 }, isMobile && styles.linksColMobile]}>
             <Text style={styles.sectionHeader}>Quick Links</Text>
             <View style={[styles.linksList, isMobile && styles.alignCenter]}>
               <TouchableOpacity onPress={() => handleLinkPress('home')} activeOpacity={0.7}>
@@ -59,9 +59,9 @@ export default function Footer({ onScrollTo }: FooterProps) {
           </View>
 
           {/* Socials Col */}
-          <View style={[styles.socialsCol, isMobile && styles.socialsColMobile]}>
+          <View style={[styles.socialsCol, !isMobile && { flex: 1 }, isMobile && styles.socialsColMobile]}>
             <Text style={styles.sectionHeader}>Connect With Us</Text>
-            <Text style={styles.connectText}>Follow our social pages to get daily vocabulary and grammar tips.</Text>
+            <Text style={[styles.connectText, isMobile && { textAlign: 'center' }]}>Follow our social pages to get daily vocabulary and grammar tips.</Text>
             <View style={styles.socialRow}>
               <TouchableOpacity
                 style={styles.socialIcon}
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     gap: 40,
   },
   brandCol: {
-    flex: 1.2,
     gap: 16,
   },
   logoRow: {
@@ -189,20 +188,16 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   brandColMobile: {
-    flex: 0,
     alignItems: 'center',
     textAlign: 'center' as any,
   },
   linksCol: {
-    flex: 0.8,
     gap: 16,
   },
   linksColMobile: {
-    flex: 0,
     alignItems: 'center',
   },
   socialsColMobile: {
-    flex: 0,
     alignItems: 'center',
   },
   sectionHeader: {
@@ -226,7 +221,6 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   socialsCol: {
-    flex: 1,
     gap: 16,
   },
   connectText: {

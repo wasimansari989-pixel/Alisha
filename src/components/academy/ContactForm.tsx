@@ -96,7 +96,7 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>(({ onSuccess },
 
         <View style={[styles.layoutRow, isMobile && styles.layoutRowMobile]}>
           {/* Left: Form Box (cream card) */}
-          <View style={styles.formCard}>
+          <View style={[styles.formCard, !isMobile && { flex: 1.3 }]}>
             {submitted ? (
               <View style={styles.successContainer}>
                 <View style={styles.successIconCircle}>
@@ -211,7 +211,7 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>(({ onSuccess },
           </View>
 
           {/* Right: Info Cards (black card) */}
-          <View style={[styles.infoCol, isMobile && styles.infoColMobile]}>
+          <View style={[styles.infoCol, !isMobile && { flex: 0.7 }, isMobile && styles.infoColMobile]}>
             <View style={styles.infoBox}>
               <View style={styles.iconCircle}>
                 <WhatsAppIcon size={26} color="#fde351" />
@@ -300,7 +300,6 @@ const styles = StyleSheet.create({
     gap: 40,
   },
   formCard: {
-    flex: 1.3,
     backgroundColor: '#f6f3eb',
     borderRadius: 28,
     padding: 40,
@@ -490,7 +489,6 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   infoCol: {
-    flex: 0.7,
   },
   infoColMobile: {
     width: '100%',
