@@ -22,7 +22,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
       <View style={styles.contentInner}>
         <View style={[styles.mainRow, isMobile && styles.mainRowMobile]}>
           {/* Brand Col */}
-          <View style={[styles.brandCol, isMobile && styles.alignCenter]}>
+          <View style={[styles.brandCol, isMobile && styles.brandColMobile]}>
             <View style={styles.logoRow}>
               {/* Spherical Logo Dot */}
               <View style={styles.logoDotContainer}>
@@ -59,7 +59,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
           </View>
 
           {/* Socials Col */}
-          <View style={[styles.socialsCol, isMobile && styles.alignCenter]}>
+          <View style={[styles.socialsCol, isMobile && styles.socialsColMobile]}>
             <Text style={styles.sectionHeader}>Connect With Us</Text>
             <Text style={styles.connectText}>Follow our social pages to get daily vocabulary and grammar tips.</Text>
             <View style={styles.socialRow}>
@@ -188,11 +188,21 @@ const styles = StyleSheet.create({
     maxWidth: 320,
     fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
+  brandColMobile: {
+    flex: 0,
+    alignItems: 'center',
+    textAlign: 'center' as any,
+  },
   linksCol: {
     flex: 0.8,
     gap: 16,
   },
   linksColMobile: {
+    flex: 0,
+    alignItems: 'center',
+  },
+  socialsColMobile: {
+    flex: 0,
     alignItems: 'center',
   },
   sectionHeader: {
