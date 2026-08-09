@@ -7,7 +7,7 @@ export const ACADEMY_CONFIG = {
   CORE_MESSAGE: "Speak English Confidently. Shape Your Future.",
   WHATSAPP_NUMBER: "WhatsApp Number", // Configurable WhatsApp
   PHONE_NUMBER: "Phone Number",       // Configurable Phone
-  INSTAGRAM_URL: "https://instagram.com/learnenglish.earnknowledge",
+  INSTAGRAM_URL: "https://www.instagram.com/learn_english_earn_knowledge?igsh=MWdtbDd6NHV4dmpldg==",
   FACEBOOK_URL: "https://facebook.com/learnenglish.earnknowledge",
   EMAIL: "contact@learnenglishearnknowledge.com",
 };

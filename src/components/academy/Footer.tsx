@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Platform, Linking } from 'react-native';
 import { ACADEMY_CONFIG } from '@/constants/config';
 import { InstagramIcon, FacebookIcon, WhatsAppIcon } from './icons';
 
@@ -66,6 +66,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
               <TouchableOpacity
                 style={styles.socialIcon}
                 activeOpacity={0.7}
+                onPress={() => Linking.openURL(ACADEMY_CONFIG.INSTAGRAM_URL)}
               >
                 <InstagramIcon size={20} color="#E1306C" />
               </TouchableOpacity>
@@ -73,6 +74,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
               <TouchableOpacity
                 style={styles.socialIcon}
                 activeOpacity={0.7}
+                onPress={() => Linking.openURL(ACADEMY_CONFIG.FACEBOOK_URL)}
               >
                 <FacebookIcon size={20} color="#1877F2" />
               </TouchableOpacity>
@@ -80,6 +82,12 @@ export default function Footer({ onScrollTo }: FooterProps) {
               <TouchableOpacity
                 style={styles.socialIcon}
                 activeOpacity={0.7}
+                onPress={() => {
+                  const cleanedNum = ACADEMY_CONFIG.WHATSAPP_NUMBER.replace(/\D/g, '');
+                  if (cleanedNum) {
+                    Linking.openURL('https://wa.me/' + cleanedNum);
+                  }
+                }}
               >
                 <WhatsAppIcon size={20} color="#25D366" />
               </TouchableOpacity>
