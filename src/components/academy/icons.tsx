@@ -306,3 +306,43 @@ export const OfflineIcon = ({ size = 32, color = '#141416' }: IconProps) => (
     />
   </Svg>
 );
+
+export const ProfessionalIcon = ({ size = 24, color = '#e85a2b' }: IconProps) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+    />
+    <Circle cx="12" cy="7" r="4" stroke={color} strokeWidth={2} />
+  </Svg>
+);
+
+export const RocketIcon = ({ size = 24, color = '#e85a2b' }: IconProps) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M4.5 16.5c-1.5 1.5-2.5 3.5-2.5 3.5s2-1 3.5-2.5M12 2C7.5 2 4.5 5 4.5 9.5c0 2 1 3.5 1 3.5l3.5-3.5 3 3-3.5 3.5s1.5 1 3.5 1C19 19.5 22 16.5 22 12c0-5-5-10-10-10z"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const SpeakingHeadIcon = ({ size = 24, color = '#e85a2b' }: IconProps) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M9 18V17c0-2.76 2.24-5 5-5s5 2.24 5 5v1M14 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+      stroke={color}
+      strokeWidth={2}
+    />
+    <Path
+      d="M3 9a3 3 0 0 1 0 6M1 11a5 5 0 0 1 0 2"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+    />
+  </Svg>
+);

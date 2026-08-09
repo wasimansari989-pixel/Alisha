@@ -1,5 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, useWindowDimensions, Platform } from 'react-native';
+import {
+  GraduationIcon,
+  InterviewIcon,
+  ProfessionalIcon,
+  RocketIcon,
+  SpeakingHeadIcon,
+} from './icons';
 
 export default function AudienceSection() {
   const { width } = useWindowDimensions();
@@ -8,27 +15,27 @@ export default function AudienceSection() {
 
   const audiences = [
     {
-      emoji: '🎓',
+      icon: <GraduationIcon size={22} color="#fde351" />,
       title: 'Students',
       desc: 'Improve English fluency for school, college classes, writing essays, and academic success.',
     },
     {
-      emoji: '💼',
+      icon: <InterviewIcon size={22} color="#fde351" />,
       title: 'Job Seekers',
       desc: 'Build vocabulary, practice mocks, and prepare to crack job interviews with high confidence.',
     },
     {
-      emoji: '👔',
+      icon: <ProfessionalIcon size={22} color="#fde351" />,
       title: 'Professionals',
       desc: 'Communicate more confidently at office meetings, draft business emails, and boost presentations.',
     },
     {
-      emoji: '🚀',
+      icon: <RocketIcon size={22} color="#fde351" />,
       title: 'Entrepreneurs',
       desc: 'Develop persuasive communication skills for client pitches, business negotiations, and networking.',
     },
     {
-      emoji: '🗣️',
+      icon: <SpeakingHeadIcon size={22} color="#fde351" />,
       title: 'Everyday Learners',
       desc: 'Become highly comfortable and natural while speaking English in daily social interactions.',
     },
@@ -58,8 +65,8 @@ export default function AudienceSection() {
         <View style={[styles.grid, isMobile && styles.gridMobile]}>
           {audiences.map((aud, idx) => (
             <View key={idx} style={[styles.card, getCardStyle()]}>
-              <View style={styles.emojiCircle}>
-                <Text style={styles.emojiText}>{aud.emoji}</Text>
+              <View style={styles.iconCircle}>
+                {aud.icon}
               </View>
               <Text style={styles.cardTitle}>{aud.title}</Text>
               <Text style={styles.cardDesc}>{aud.desc}</Text>
@@ -73,14 +80,14 @@ export default function AudienceSection() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F3E7',
+    backgroundColor: '#ebe9e1',
     paddingVertical: 80,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#dad2bf',
+    borderBottomColor: '#e8e4d6',
   },
   contentInner: {
-    maxWidth: 1280,
+    maxWidth: 1080,
     alignSelf: 'center',
     width: '100%',
   },
@@ -96,14 +103,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   eyebrowText: {
-    color: '#e85a2b',
+    color: '#6a6a64',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#141416',
+    color: '#0a0a0a',
     fontSize: clamp(34, 4.4, 52),
     fontWeight: '800',
     lineHeight: clamp(36, 4.6, 56),
@@ -117,11 +124,12 @@ const styles = StyleSheet.create({
     }),
   },
   subtitle: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 15,
     lineHeight: 24,
     textAlign: 'center',
     maxWidth: 600,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   grid: {
     flexDirection: 'row',
@@ -133,15 +141,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   card: {
-    backgroundColor: '#F2EAD6', // Beige rounded cards
-    borderRadius: 22,
-    padding: 32,
+    backgroundColor: '#f6f3eb',
+    borderRadius: 28,
+    padding: 36,
     borderWidth: 1,
-    borderColor: '#dad2bf',
+    borderColor: '#e8e4d6',
     alignItems: 'flex-start',
     ...Platform.select({
       ios: {
-        shadowColor: '#141416',
+        shadowColor: '#0a0a0a',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.02,
         shadowRadius: 10,
@@ -150,7 +158,8 @@ const styles = StyleSheet.create({
         elevation: 1,
       },
       web: {
-        boxShadow: '0 8px 16px rgba(20, 20, 22, 0.01)',
+        background: 'linear-gradient(180deg, #f6f3eb 0%, #f1ede2 100%)',
+        boxShadow: 'inset 0 1px 0 #ffffff, 0 4px 12px rgba(40, 40, 30, 0.04)',
         transition: 'transform 0.3s ease',
         cursor: 'default',
         ':hover': {
@@ -170,31 +179,28 @@ const styles = StyleSheet.create({
   cardMobile: {
     width: '100%',
   },
-  emojiCircle: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
+  iconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#0a0a0a',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#dad2bf',
-  },
-  emojiText: {
-    fontSize: 20,
   },
   cardTitle: {
-    color: '#141416',
-    fontSize: 18,
+    color: '#0a0a0a',
+    fontSize: 19,
     fontWeight: '800',
     marginBottom: 10,
     letterSpacing: -0.5,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
   cardDesc: {
-    color: '#8B847A',
+    color: '#6a6a64',
     fontSize: 14,
     lineHeight: 22,
+    fontFamily: Platform.OS === 'web' ? 'var(--font-display)' : 'normal',
   },
 });
 
