@@ -1,10 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, useWindowDimensions, Platform, Image } from 'react-native';
+import { View, Text, StyleSheet, useWindowDimensions, Platform } from 'react-native';
 import { ACADEMY_CONFIG } from '@/constants/config';
-import { PersonalityIcon } from './icons';
-
-// Import Trainer Image
-const TrainerImg = require('../../Image/01.webp');
+import { PersonalityIcon, ProfessionalIcon } from './icons';
 
 export default function TrainerSection() {
   const { width } = useWindowDimensions();
@@ -19,54 +16,11 @@ export default function TrainerSection() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const img = new window.Image();
-    img.src = TrainerImg;
-
     const drawHalftone = () => {
       const cardWidth = canvas.clientWidth || 800;
       const cardHeight = canvas.clientHeight || 450;
       canvas.width = cardWidth;
       canvas.height = cardHeight;
-
-      // Crop image to cover the canvas aspect ratio (like resizeMode="cover")
-      const imgRatio = img.width / img.height;
-      const canvasRatio = cardWidth / cardHeight;
-      let sourceX = 0;
-      let sourceY = 0;
-      let sourceWidth = img.width;
-      let sourceHeight = img.height;
-
-      if (imgRatio > canvasRatio) {
-        sourceWidth = img.height * canvasRatio;
-        sourceX = (img.width - sourceWidth) / 2;
-      } else {
-        sourceHeight = img.width / canvasRatio;
-        sourceY = (img.height - sourceHeight) / 2;
-      }
-
-      // Sample image pixels on an offscreen canvas at a fixed grid resolution (80 dots wide)
-      const sampleWidth = 90;
-      const sampleHeight = Math.round(sampleWidth / canvasRatio);
-      
-      const offscreen = document.createElement('canvas');
-      offscreen.width = sampleWidth;
-      offscreen.height = sampleHeight;
-      const offCtx = offscreen.getContext('2d');
-      if (!offCtx) return;
-
-      offCtx.drawImage(
-        img,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        sampleWidth,
-        sampleHeight
-      );
-      
-      const imgData = offCtx.getImageData(0, 0, sampleWidth, sampleHeight).data;
 
       // Clear main canvas
       ctx.clearRect(0, 0, cardWidth, cardHeight);
@@ -75,45 +29,27 @@ export default function TrainerSection() {
       ctx.fillStyle = '#0a0a0a';
       ctx.fillRect(0, 0, cardWidth, cardHeight);
 
-      const dotSpacingX = cardWidth / sampleWidth;
-      const dotSpacingY = cardHeight / sampleHeight;
-      const maxRadius = Math.min(dotSpacingX, dotSpacingY) * 0.65;
+      // Draw a subtle, premium abstract grid/dot pattern
+      const dotSpacing = 20;
+      for (let y = 10; y < cardHeight; y += dotSpacing) {
+        for (let x = 10; x < cardWidth; x += dotSpacing) {
+          const dx = x - cardWidth / 2;
+          const dy = y - cardHeight / 2;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxDist = Math.sqrt((cardWidth / 2) ** 2 + (cardHeight / 2) ** 2);
+          const opacity = Math.max(0, 0.08 - (dist / maxDist) * 0.07);
 
-      for (let y = 0; y < sampleHeight; y++) {
-        for (let x = 0; x < sampleWidth; x++) {
-          const idx = (y * sampleWidth + x) * 4;
-          const r = imgData[idx];
-          const g = imgData[idx + 1];
-          const b = imgData[idx + 2];
-          const a = imgData[idx + 3];
-
-          if (a < 50) continue;
-
-          // Grayscale brightness (0 to 1)
-          const brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-          if (brightness > 0.05) {
-            const cx = x * dotSpacingX + dotSpacingX / 2;
-            const cy = y * dotSpacingY + dotSpacingY / 2;
-            const radius = brightness * maxRadius;
-
-            // Draw white halftone dot
+          if (opacity > 0) {
             ctx.beginPath();
-            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-            
-            // Soft white dots opacity to preserve text readability
-            ctx.fillStyle = `rgba(255, 255, 255, ${brightness * 0.14})`;
+            ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
             ctx.fill();
           }
         }
       }
     };
 
-    if (img.complete) {
-      drawHalftone();
-    } else {
-      img.onload = drawHalftone;
-    }
+    drawHalftone();
 
     // Auto-redraw halftone pattern on window resize
     window.addEventListener('resize', drawHalftone);
@@ -134,15 +70,9 @@ export default function TrainerSection() {
     <View style={styles.container}>
       <View style={styles.contentInner}>
         <View style={styles.trainerCard}>
-          {/* Halftone Canvas for Web, Faded Image Fallback for Native */}
-          {Platform.OS === 'web' ? (
+          {/* Halftone Canvas for Web */}
+          {Platform.OS === 'web' && (
             <canvas ref={canvasRef} style={styles.webCanvas} />
-          ) : (
-            <Image
-              source={TrainerImg}
-              style={styles.cardBgImage}
-              resizeMode="cover"
-            />
           )}
 
           {/* Backing glows - signature Novabrew look */}
@@ -154,7 +84,7 @@ export default function TrainerSection() {
             <View style={styles.leftCol}>
               <View style={styles.avatarBorder}>
                 <View style={styles.avatarInner}>
-                  <Image source={TrainerImg} style={styles.avatarImg} resizeMode="cover" />
+                  <ProfessionalIcon size={72} color="#fde351" />
                 </View>
               </View>
               <View style={styles.badge}>
@@ -283,14 +213,11 @@ const styles = StyleSheet.create({
   avatarInner: {
     flex: 1,
     borderRadius: 80,
-    backgroundColor: '#0a0a0a',
+    backgroundColor: 'rgba(253, 227, 81, 0.03)',
+    borderWidth: 1,
+    borderColor: 'rgba(253, 227, 81, 0.1)',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  avatarImg: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 80,
   },
   badge: {
     flexDirection: 'row',
